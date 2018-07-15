@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.dao.VideomanageplatforminfoMapper">
+    <resultMap id="BaseResultMap" type="com.springmvc.pojo.Videomanageplatforminfo">
+        <id column="ID" jdbcType="INTEGER" property="id" />
+        <result column="PlatformIP" jdbcType="VARCHAR" property="platformip" />
+        <result column="TaskMode" jdbcType="INTEGER" property="taskmode" />
+        <result column="TaskRunInterval" jdbcType="INTEGER" property="taskruninterval" />
+        <result column="TaskGetInterval" jdbcType="INTEGER" property="taskgetinterval" />
+        <result column="TaskBeginTime" jdbcType="INTEGER" property="taskbegintime" />
+        <result column="TaskEndTime" jdbcType="INTEGER" property="taskendtime" />
+        <result column="LastTaskTime" jdbcType="INTEGER" property="lasttasktime" />
+        <result column="CompressTaskStatus" jdbcType="INTEGER" property="compresstaskstatus" />
+        <result column="ErrorCode" jdbcType="INTEGER" property="errorcode" />
+        <result column="WebServiceTaskStatus" jdbcType="INTEGER" property="webservicetaskstatus" />
+        <result column="Resved1" jdbcType="INTEGER" property="resved1" />
+        <result column="Resved2" jdbcType="VARCHAR" property="resved2" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, PlatformIP, TaskMode, TaskRunInterval, TaskGetInterval, TaskBeginTime, TaskEndTime,
+    LastTaskTime, CompressTaskStatus, ErrorCode, WebServiceTaskStatus, Resved1, Resved2
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from videomanageplatforminfo
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from videomanageplatforminfo
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.springmvc.pojo.Videomanageplatforminfo">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into videomanageplatforminfo (PlatformIP, TaskMode, TaskRunInterval,
+        TaskGetInterval, TaskBeginTime, TaskEndTime,
+        LastTaskTime, CompressTaskStatus, ErrorCode,
+        WebServiceTaskStatus, Resved1, Resved2
+        )
+        values (#{platformip,jdbcType=VARCHAR}, #{taskmode,jdbcType=INTEGER}, #{taskruninterval,jdbcType=INTEGER},
+        #{taskgetinterval,jdbcType=INTEGER}, #{taskbegintime,jdbcType=INTEGER}, #{taskendtime,jdbcType=INTEGER},
+        #{lasttasktime,jdbcType=INTEGER}, #{compresstaskstatus,jdbcType=INTEGER}, #{errorcode,jdbcType=INTEGER},
+        #{webservicetaskstatus,jdbcType=INTEGER}, #{resved1,jdbcType=INTEGER}, #{resved2,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.springmvc.pojo.Videomanageplatforminfo">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into videomanageplatforminfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="platformip != null">
+                PlatformIP,
+            </if>
+            <if test="taskmode != null">
+                TaskMode,
+            </if>
+            <if test="taskruninterval != null">
+                TaskRunInterval,
+            </if>
+            <if test="taskgetinterval != null">
+                TaskGetInterval,
+            </if>
+            <if test="taskbegintime != null">
+                TaskBeginTime,
+            </if>
+            <if test="taskendtime != null">
+                TaskEndTime,
+            </if>
+            <if test="lasttasktime != null">
+                LastTaskTime,
+            </if>
+            <if test="compresstaskstatus != null">
+                CompressTaskStatus,
+            </if>
+            <if test="errorcode != null">
+                ErrorCode,
+            </if>
+            <if test="webservicetaskstatus != null">
+                WebServiceTaskStatus,
+            </if>
+            <if test="resved1 != null">
+                Resved1,
+            </if>
+            <if test="resved2 != null">
+                Resved2,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="platformip != null">
+                #{platformip,jdbcType=VARCHAR},
+            </if>
+            <if test="taskmode != null">
+                #{taskmode,jdbcType=INTEGER},
+            </if>
+            <if test="taskruninterval != null">
+                #{taskruninterval,jdbcType=INTEGER},
+            </if>
+            <if test="taskgetinterval != null">
+                #{taskgetinterval,jdbcType=INTEGER},
+            </if>
+            <if test="taskbegintime != null">
+                #{taskbegintime,jdbcType=INTEGER},
+            </if>
+            <if test="taskendtime != null">
+                #{taskendtime,jdbcType=INTEGER},
+            </if>
+            <if test="lasttasktime != null">
+                #{lasttasktime,jdbcType=INTEGER},
+            </if>
+            <if test="compresstaskstatus != null">
+                #{compresstaskstatus,jdbcType=INTEGER},
+            </if>
+            <if test="errorcode != null">
+                #{errorcode,jdbcType=INTEGER},
+            </if>
+            <if test="webservicetaskstatus != null">
+                #{webservicetaskstatus,jdbcType=INTEGER},
+            </if>
+            <if test="resved1 != null">
+                #{resved1,jdbcType=INTEGER},
+            </if>
+            <if test="resved2 != null">
+                #{resved2,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.pojo.Videomanageplatforminfo">
+        update videomanageplatforminfo
+        <set>
+            <if test="platformip != null">
+                PlatformIP = #{platformip,jdbcType=VARCHAR},
+            </if>
+            <if test="taskmode != null">
+                TaskMode = #{taskmode,jdbcType=INTEGER},
+            </if>
+            <if test="taskruninterval != null">
+                TaskRunInterval = #{taskruninterval,jdbcType=INTEGER},
+            </if>
+            <if test="taskgetinterval != null">
+                TaskGetInterval = #{taskgetinterval,jdbcType=INTEGER},
+            </if>
+            <if test="taskbegintime != null">
+                TaskBeginTime = #{taskbegintime,jdbcType=INTEGER},
+            </if>
+            <if test="taskendtime != null">
+                TaskEndTime = #{taskendtime,jdbcType=INTEGER},
+            </if>
+            <if test="lasttasktime != null">
+                LastTaskTime = #{lasttasktime,jdbcType=INTEGER},
+            </if>
+            <if test="compresstaskstatus != null">
+                CompressTaskStatus = #{compresstaskstatus,jdbcType=INTEGER},
+            </if>
+            <if test="errorcode != null">
+                ErrorCode = #{errorcode,jdbcType=INTEGER},
+            </if>
+            <if test="webservicetaskstatus != null">
+                WebServiceTaskStatus = #{webservicetaskstatus,jdbcType=INTEGER},
+            </if>
+            <if test="resved1 != null">
+                Resved1 = #{resved1,jdbcType=INTEGER},
+            </if>
+            <if test="resved2 != null">
+                Resved2 = #{resved2,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.springmvc.pojo.Videomanageplatforminfo">
+    update videomanageplatforminfo
+    set PlatformIP = #{platformip,jdbcType=VARCHAR},
+      TaskMode = #{taskmode,jdbcType=INTEGER},
+      TaskRunInterval = #{taskruninterval,jdbcType=INTEGER},
+      TaskGetInterval = #{taskgetinterval,jdbcType=INTEGER},
+      TaskBeginTime = #{taskbegintime,jdbcType=INTEGER},
+      TaskEndTime = #{taskendtime,jdbcType=INTEGER},
+      LastTaskTime = #{lasttasktime,jdbcType=INTEGER},
+      CompressTaskStatus = #{compresstaskstatus,jdbcType=INTEGER},
+      ErrorCode = #{errorcode,jdbcType=INTEGER},
+      WebServiceTaskStatus = #{webservicetaskstatus,jdbcType=INTEGER},
+      Resved1 = #{resved1,jdbcType=INTEGER},
+      Resved2 = #{resved2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

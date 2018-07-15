@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>城市联网视频智能运维系统登录</title>
+    <link rel="stylesheet" type="text/css" href="../js/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../js/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+    <script src="../js/jquery-3.2.1/jquery-3.2.1.min.js"></script>
+    <script src="../js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+
+</style>
+
+<body style="background-image: url('/img/background.png')" class="text-center">
+<div class="row" style="    ;margin-top: 18%">
+    <div class="col-md-6" style="text-align: right">
+        <h3>城市联网视频智能运维系统</h3>
+        <h3>Video Quality Diagnosis</h3>
+    </div>
+    <div class="col-md-6" style="margin-top:1.5%;text-align: left">
+        <div class="col-md-4">
+            <div class="form-group">
+                <span>账户：</span><input style="text-indent:6px" id="inputUser" placeholder="account">
+            </div>
+            <div class="form-group">
+                <span>密码：</span><input style="text-indent:6px" type="password" id="inputPassword"
+                                       placeholder="password">
+            </div>
+        </div>
+        <div style="" class="col-md-2">
+            <label>
+                <input type="checkbox"> 记住密码
+            </label>
+            <button style="width: 80%;text-align: center ;margin-top:7%" class="btn btn-primary"
+                    onclick="commit()" type="submit">登录
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function commit() {
+        var name = $("#inputUser").val()
+        var password = $("#inputPassword").val()
+        window.location.href = "/page/index.html";
+
+        /*
+                $.ajax({
+                    url: '/login/check.do',
+                    type: 'POST', //GET
+                    async: true,    //或false,是否异步
+                    data: {
+                        name: name,
+                        password: password,
+                    },
+                    timeout: 5000,    //超时时间
+                    dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+                    success: function (data) {
+                        console.log("data:" + data.level);
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log('错误')
+                        console.log(xhr)
+                        console.log(textStatus)
+                    },
+                })*/
+    }
+</script>
+</html>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.dao.ZrvcompresstaskassigninfoMapper">
+    <resultMap id="BaseResultMap" type="com.springmvc.pojo.Zrvcompresstaskassigninfo">
+        <id column="RecordNum" jdbcType="VARCHAR" property="recordnum" />
+        <result column="FileName" jdbcType="VARCHAR" property="filename" />
+        <result column="FileSuffixName" jdbcType="VARCHAR" property="filesuffixname" />
+        <result column="FileSize" jdbcType="INTEGER" property="filesize" />
+        <result column="UploadUnit" jdbcType="VARCHAR" property="uploadunit" />
+        <result column="UploadTime" jdbcType="INTEGER" property="uploadtime" />
+        <result column="StoragePath" jdbcType="VARCHAR" property="storagepath" />
+        <result column="YSHFileSize" jdbcType="INTEGER" property="yshfilesize" />
+        <result column="YSHStoragePath" jdbcType="VARCHAR" property="yshstoragepath" />
+        <result column="AssignFlag" jdbcType="INTEGER" property="assignflag" />
+        <result column="PlatformIP" jdbcType="VARCHAR" property="platformip" />
+        <result column="ZRVDeviceIP" jdbcType="VARCHAR" property="zrvdeviceip" />
+        <result column="TaskCreateTime" jdbcType="TIMESTAMP" property="taskcreatetime" />
+        <result column="ZRVCompressBeginTime" jdbcType="INTEGER" property="zrvcompressbegintime" />
+        <result column="ZRVCompressEndTime" jdbcType="INTEGER" property="zrvcompressendtime" />
+        <result column="TaskStatus" jdbcType="INTEGER" property="taskstatus" />
+        <result column="TaskResult" jdbcType="INTEGER" property="taskresult" />
+        <result column="ErrorCode" jdbcType="INTEGER" property="errorcode" />
+        <result column="Resved1" jdbcType="INTEGER" property="resved1" />
+        <result column="Resved2" jdbcType="VARCHAR" property="resved2" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    RecordNum, FileName, FileSuffixName, FileSize, UploadUnit, UploadTime, StoragePath,
+    YSHFileSize, YSHStoragePath, AssignFlag, PlatformIP, ZRVDeviceIP, TaskCreateTime,
+    ZRVCompressBeginTime, ZRVCompressEndTime, TaskStatus, TaskResult, ErrorCode, Resved1,
+    Resved2
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from zrvcompresstaskassigninfo
+        where RecordNum = #{recordnum,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from zrvcompresstaskassigninfo
+    where RecordNum = #{recordnum,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.springmvc.pojo.Zrvcompresstaskassigninfo">
+        <selectKey keyProperty="recordnum" order="AFTER" resultType="java.lang.String">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into zrvcompresstaskassigninfo (FileName, FileSuffixName, FileSize,
+        UploadUnit, UploadTime, StoragePath,
+        YSHFileSize, YSHStoragePath, AssignFlag,
+        PlatformIP, ZRVDeviceIP, TaskCreateTime,
+        ZRVCompressBeginTime, ZRVCompressEndTime,
+        TaskStatus, TaskResult, ErrorCode,
+        Resved1, Resved2)
+        values (#{filename,jdbcType=VARCHAR}, #{filesuffixname,jdbcType=VARCHAR}, #{filesize,jdbcType=INTEGER},
+        #{uploadunit,jdbcType=VARCHAR}, #{uploadtime,jdbcType=INTEGER}, #{storagepath,jdbcType=VARCHAR},
+        #{yshfilesize,jdbcType=INTEGER}, #{yshstoragepath,jdbcType=VARCHAR}, #{assignflag,jdbcType=INTEGER},
+        #{platformip,jdbcType=VARCHAR}, #{zrvdeviceip,jdbcType=VARCHAR}, #{taskcreatetime,jdbcType=TIMESTAMP},
+        #{zrvcompressbegintime,jdbcType=INTEGER}, #{zrvcompressendtime,jdbcType=INTEGER},
+        #{taskstatus,jdbcType=INTEGER}, #{taskresult,jdbcType=INTEGER}, #{errorcode,jdbcType=INTEGER},
+        #{resved1,jdbcType=INTEGER}, #{resved2,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.springmvc.pojo.Zrvcompresstaskassigninfo">
+        <selectKey keyProperty="recordnum" order="AFTER" resultType="java.lang.String">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into zrvcompresstaskassigninfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="filename != null">
+                FileName,
+            </if>
+            <if test="filesuffixname != null">
+                FileSuffixName,
+            </if>
+            <if test="filesize != null">
+                FileSize,
+            </if>
+            <if test="uploadunit != null">
+                UploadUnit,
+            </if>
+            <if test="uploadtime != null">
+                UploadTime,
+            </if>
+            <if test="storagepath != null">
+                StoragePath,
+            </if>
+            <if test="yshfilesize != null">
+                YSHFileSize,
+            </if>
+            <if test="yshstoragepath != null">
+                YSHStoragePath,
+            </if>
+            <if test="assignflag != null">
+                AssignFlag,
+            </if>
+            <if test="platformip != null">
+                PlatformIP,
+            </if>
+            <if test="zrvdeviceip != null">
+                ZRVDeviceIP,
+            </if>
+            <if test="taskcreatetime != null">
+                TaskCreateTime,
+            </if>
+            <if test="zrvcompressbegintime != null">
+                ZRVCompressBeginTime,
+            </if>
+            <if test="zrvcompressendtime != null">
+                ZRVCompressEndTime,
+            </if>
+            <if test="taskstatus != null">
+                TaskStatus,
+            </if>
+            <if test="taskresult != null">
+                TaskResult,
+            </if>
+            <if test="errorcode != null">
+                ErrorCode,
+            </if>
+            <if test="resved1 != null">
+                Resved1,
+            </if>
+            <if test="resved2 != null">
+                Resved2,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="filename != null">
+                #{filename,jdbcType=VARCHAR},
+            </if>
+            <if test="filesuffixname != null">
+                #{filesuffixname,jdbcType=VARCHAR},
+            </if>
+            <if test="filesize != null">
+                #{filesize,jdbcType=INTEGER},
+            </if>
+            <if test="uploadunit != null">
+                #{uploadunit,jdbcType=VARCHAR},
+            </if>
+            <if test="uploadtime != null">
+                #{uploadtime,jdbcType=INTEGER},
+            </if>
+            <if test="storagepath != null">
+                #{storagepath,jdbcType=VARCHAR},
+            </if>
+            <if test="yshfilesize != null">
+                #{yshfilesize,jdbcType=INTEGER},
+            </if>
+            <if test="yshstoragepath != null">
+                #{yshstoragepath,jdbcType=VARCHAR},
+            </if>
+            <if test="assignflag != null">
+                #{assignflag,jdbcType=INTEGER},
+            </if>
+            <if test="platformip != null">
+                #{platformip,jdbcType=VARCHAR},
+            </if>
+            <if test="zrvdeviceip != null">
+                #{zrvdeviceip,jdbcType=VARCHAR},
+            </if>
+            <if test="taskcreatetime != null">
+                #{taskcreatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="zrvcompressbegintime != null">
+                #{zrvcompressbegintime,jdbcType=INTEGER},
+            </if>
+            <if test="zrvcompressendtime != null">
+                #{zrvcompressendtime,jdbcType=INTEGER},
+            </if>
+            <if test="taskstatus != null">
+                #{taskstatus,jdbcType=INTEGER},
+            </if>
+            <if test="taskresult != null">
+                #{taskresult,jdbcType=INTEGER},
+            </if>
+            <if test="errorcode != null">
+                #{errorcode,jdbcType=INTEGER},
+            </if>
+            <if test="resved1 != null">
+                #{resved1,jdbcType=INTEGER},
+            </if>
+            <if test="resved2 != null">
+                #{resved2,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.pojo.Zrvcompresstaskassigninfo">
+        update zrvcompresstaskassigninfo
+        <set>
+            <if test="filename != null">
+                FileName = #{filename,jdbcType=VARCHAR},
+            </if>
+            <if test="filesuffixname != null">
+                FileSuffixName = #{filesuffixname,jdbcType=VARCHAR},
+            </if>
+            <if test="filesize != null">
+                FileSize = #{filesize,jdbcType=INTEGER},
+            </if>
+            <if test="uploadunit != null">
+                UploadUnit = #{uploadunit,jdbcType=VARCHAR},
+            </if>
+            <if test="uploadtime != null">
+                UploadTime = #{uploadtime,jdbcType=INTEGER},
+            </if>
+            <if test="storagepath != null">
+                StoragePath = #{storagepath,jdbcType=VARCHAR},
+            </if>
+            <if test="yshfilesize != null">
+                YSHFileSize = #{yshfilesize,jdbcType=INTEGER},
+            </if>
+            <if test="yshstoragepath != null">
+                YSHStoragePath = #{yshstoragepath,jdbcType=VARCHAR},
+            </if>
+            <if test="assignflag != null">
+                AssignFlag = #{assignflag,jdbcType=INTEGER},
+            </if>
+            <if test="platformip != null">
+                PlatformIP = #{platformip,jdbcType=VARCHAR},
+            </if>
+            <if test="zrvdeviceip != null">
+                ZRVDeviceIP = #{zrvdeviceip,jdbcType=VARCHAR},
+            </if>
+            <if test="taskcreatetime != null">
+                TaskCreateTime = #{taskcreatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="zrvcompressbegintime != null">
+                ZRVCompressBeginTime = #{zrvcompressbegintime,jdbcType=INTEGER},
+            </if>
+            <if test="zrvcompressendtime != null">
+                ZRVCompressEndTime = #{zrvcompressendtime,jdbcType=INTEGER},
+            </if>
+            <if test="taskstatus != null">
+                TaskStatus = #{taskstatus,jdbcType=INTEGER},
+            </if>
+            <if test="taskresult != null">
+                TaskResult = #{taskresult,jdbcType=INTEGER},
+            </if>
+            <if test="errorcode != null">
+                ErrorCode = #{errorcode,jdbcType=INTEGER},
+            </if>
+            <if test="resved1 != null">
+                Resved1 = #{resved1,jdbcType=INTEGER},
+            </if>
+            <if test="resved2 != null">
+                Resved2 = #{resved2,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where RecordNum = #{recordnum,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.springmvc.pojo.Zrvcompresstaskassigninfo">
+    update zrvcompresstaskassigninfo
+    set FileName = #{filename,jdbcType=VARCHAR},
+      FileSuffixName = #{filesuffixname,jdbcType=VARCHAR},
+      FileSize = #{filesize,jdbcType=INTEGER},
+      UploadUnit = #{uploadunit,jdbcType=VARCHAR},
+      UploadTime = #{uploadtime,jdbcType=INTEGER},
+      StoragePath = #{storagepath,jdbcType=VARCHAR},
+      YSHFileSize = #{yshfilesize,jdbcType=INTEGER},
+      YSHStoragePath = #{yshstoragepath,jdbcType=VARCHAR},
+      AssignFlag = #{assignflag,jdbcType=INTEGER},
+      PlatformIP = #{platformip,jdbcType=VARCHAR},
+      ZRVDeviceIP = #{zrvdeviceip,jdbcType=VARCHAR},
+      TaskCreateTime = #{taskcreatetime,jdbcType=TIMESTAMP},
+      ZRVCompressBeginTime = #{zrvcompressbegintime,jdbcType=INTEGER},
+      ZRVCompressEndTime = #{zrvcompressendtime,jdbcType=INTEGER},
+      TaskStatus = #{taskstatus,jdbcType=INTEGER},
+      TaskResult = #{taskresult,jdbcType=INTEGER},
+      ErrorCode = #{errorcode,jdbcType=INTEGER},
+      Resved1 = #{resved1,jdbcType=INTEGER},
+      Resved2 = #{resved2,jdbcType=VARCHAR}
+    where RecordNum = #{recordnum,jdbcType=VARCHAR}
+  </update>
+</mapper>
