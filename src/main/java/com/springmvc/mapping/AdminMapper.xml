@@ -1,82 +1,150 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springmvc.dao.AdminMapper">
-    <resultMap id="BaseResultMap" type="com.springmvc.pojo.Admin">
-        <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="name" property="name" jdbcType="VARCHAR"/>
-        <result column="password" property="password" jdbcType="VARCHAR"/>
-        <result column="level" property="level" jdbcType="INTEGER"/>
-    </resultMap>
-
-    <sql id="Base_Column_List">
-    id, name, password
-    </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select
-        id, name, password
-        from admin
-        where id = #{id}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <resultMap id="BaseResultMap" type="com.springmvc.pojo.Admin">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Adid" jdbcType="VARCHAR" property="adid" />
+    <result column="Account" jdbcType="VARCHAR" property="account" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Sex" jdbcType="INTEGER" property="sex" />
+    <result column="Phone" jdbcType="INTEGER" property="phone" />
+    <result column="Address" jdbcType="VARCHAR" property="address" />
+    <result column="Timestamp" jdbcType="VARCHAR" property="timestamp" />
+    <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, Adid, Account, Password, Name, Sex, Phone, Address, Timestamp, Remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from admin
-    where id = #{id,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.springmvc.pojo.Admin">
-    insert into admin (id, name, password)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.springmvc.pojo.Admin">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin (Adid, Account, Password, 
+      Name, Sex, Phone, Address, 
+      Timestamp, Remarks)
+    values (#{adid,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{phone,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{timestamp,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="com.springmvc.pojo.Admin">
-        insert into admin
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="name != null">
-                name,
-            </if>
-            <if test="password != null">
-                password,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null">
-                #{password,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.pojo.Admin">
-        update admin
-        <set>
-            <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null">
-                password = #{password,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.springmvc.pojo.Admin">
+  <insert id="insertSelective" parameterType="com.springmvc.pojo.Admin">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adid != null">
+        Adid,
+      </if>
+      <if test="account != null">
+        Account,
+      </if>
+      <if test="password != null">
+        Password,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="phone != null">
+        Phone,
+      </if>
+      <if test="address != null">
+        Address,
+      </if>
+      <if test="timestamp != null">
+        Timestamp,
+      </if>
+      <if test="remarks != null">
+        Remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adid != null">
+        #{adid,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.pojo.Admin">
     update admin
-    set name = #{name,jdbcType=VARCHAR},
-    password = #{password,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    <set>
+      <if test="adid != null">
+        Adid = #{adid,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        Account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        Phone = #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        Address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        Timestamp = #{timestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
   </update>
-
-    <insert id="getMap">
-    INSERT INTO admin (name, password) VALUES (#{name}, #{password})
-    </insert>
-
-    <select id="checkInfo" resultMap="BaseResultMap">
-        select
-        id, name, password,level
-        from admin
-        where name = #{name}
-    </select>
+  <update id="updateByPrimaryKey" parameterType="com.springmvc.pojo.Admin">
+    update admin
+    set Adid = #{adid,jdbcType=VARCHAR},
+      Account = #{account,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      Name = #{name,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=INTEGER},
+      Phone = #{phone,jdbcType=INTEGER},
+      Address = #{address,jdbcType=VARCHAR},
+      Timestamp = #{timestamp,jdbcType=VARCHAR},
+      Remarks = #{remarks,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

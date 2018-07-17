@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.dao.CardMapper">
+  <resultMap id="BaseResultMap" type="com.springmvc.pojo.Card">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="CardId" jdbcType="INTEGER" property="cardid" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Price" jdbcType="INTEGER" property="price" />
+    <result column="Img" jdbcType="VARCHAR" property="img" />
+    <result column="Date" jdbcType="TIMESTAMP" property="date" />
+    <result column="Type" jdbcType="VARCHAR" property="type" />
+    <result column="Inventory" jdbcType="INTEGER" property="inventory" />
+    <result column="Soldnum" jdbcType="INTEGER" property="soldnum" />
+    <result column="CardState" jdbcType="INTEGER" property="cardstate" />
+    <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.springmvc.pojo.Card">
+    <result column="Introduc" jdbcType="LONGVARCHAR" property="introduc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, CardId, Name, Price, Img, Date, Type, Inventory, Soldnum, CardState, Remarks
+  </sql>
+  <sql id="Blob_Column_List">
+    Introduc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from card
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from card
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.springmvc.pojo.Card">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into card (CardId, Name, Price, 
+      Img, Date, Type, 
+      Inventory, Soldnum, CardState, 
+      Remarks, Introduc)
+    values (#{cardid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, 
+      #{img,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, 
+      #{inventory,jdbcType=INTEGER}, #{soldnum,jdbcType=INTEGER}, #{cardstate,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR}, #{introduc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springmvc.pojo.Card">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cardid != null">
+        CardId,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="price != null">
+        Price,
+      </if>
+      <if test="img != null">
+        Img,
+      </if>
+      <if test="date != null">
+        Date,
+      </if>
+      <if test="type != null">
+        Type,
+      </if>
+      <if test="inventory != null">
+        Inventory,
+      </if>
+      <if test="soldnum != null">
+        Soldnum,
+      </if>
+      <if test="cardstate != null">
+        CardState,
+      </if>
+      <if test="remarks != null">
+        Remarks,
+      </if>
+      <if test="introduc != null">
+        Introduc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cardid != null">
+        #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="inventory != null">
+        #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="soldnum != null">
+        #{soldnum,jdbcType=INTEGER},
+      </if>
+      <if test="cardstate != null">
+        #{cardstate,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="introduc != null">
+        #{introduc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.pojo.Card">
+    update card
+    <set>
+      <if test="cardid != null">
+        CardId = #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        Price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        Img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        Date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        Type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="inventory != null">
+        Inventory = #{inventory,jdbcType=INTEGER},
+      </if>
+      <if test="soldnum != null">
+        Soldnum = #{soldnum,jdbcType=INTEGER},
+      </if>
+      <if test="cardstate != null">
+        CardState = #{cardstate,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="introduc != null">
+        Introduc = #{introduc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.springmvc.pojo.Card">
+    update card
+    set CardId = #{cardid,jdbcType=INTEGER},
+      Name = #{name,jdbcType=VARCHAR},
+      Price = #{price,jdbcType=INTEGER},
+      Img = #{img,jdbcType=VARCHAR},
+      Date = #{date,jdbcType=TIMESTAMP},
+      Type = #{type,jdbcType=VARCHAR},
+      Inventory = #{inventory,jdbcType=INTEGER},
+      Soldnum = #{soldnum,jdbcType=INTEGER},
+      CardState = #{cardstate,jdbcType=INTEGER},
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      Introduc = #{introduc,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springmvc.pojo.Card">
+    update card
+    set CardId = #{cardid,jdbcType=INTEGER},
+      Name = #{name,jdbcType=VARCHAR},
+      Price = #{price,jdbcType=INTEGER},
+      Img = #{img,jdbcType=VARCHAR},
+      Date = #{date,jdbcType=TIMESTAMP},
+      Type = #{type,jdbcType=VARCHAR},
+      Inventory = #{inventory,jdbcType=INTEGER},
+      Soldnum = #{soldnum,jdbcType=INTEGER},
+      CardState = #{cardstate,jdbcType=INTEGER},
+      Remarks = #{remarks,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

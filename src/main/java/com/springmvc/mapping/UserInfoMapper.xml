@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.springmvc.pojo.UserInfo">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="OpenId" jdbcType="VARCHAR" property="openid" />
+    <result column="Adid" jdbcType="VARCHAR" property="adid" />
+    <result column="NickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="Sex" jdbcType="VARCHAR" property="sex" />
+    <result column="Province" jdbcType="VARCHAR" property="province" />
+    <result column="City" jdbcType="VARCHAR" property="city" />
+    <result column="Country" jdbcType="VARCHAR" property="country" />
+    <result column="HeadImgUrl" jdbcType="VARCHAR" property="headimgurl" />
+    <result column="Code" jdbcType="INTEGER" property="code" />
+    <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, OpenId, Adid, NickName, Sex, Province, City, Country, HeadImgUrl, Code, Remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from userinfo
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from userinfo
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.springmvc.pojo.UserInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into userinfo (OpenId, Adid, NickName, 
+      Sex, Province, City, 
+      Country, HeadImgUrl, Code, 
+      Remarks)
+    values (#{openid,jdbcType=VARCHAR}, #{adid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, #{code,jdbcType=INTEGER}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springmvc.pojo.UserInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="openid != null">
+        OpenId,
+      </if>
+      <if test="adid != null">
+        Adid,
+      </if>
+      <if test="nickname != null">
+        NickName,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="province != null">
+        Province,
+      </if>
+      <if test="city != null">
+        City,
+      </if>
+      <if test="country != null">
+        Country,
+      </if>
+      <if test="headimgurl != null">
+        HeadImgUrl,
+      </if>
+      <if test="code != null">
+        Code,
+      </if>
+      <if test="remarks != null">
+        Remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="adid != null">
+        #{adid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null">
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.pojo.UserInfo">
+    update userinfo
+    <set>
+      <if test="openid != null">
+        OpenId = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="adid != null">
+        Adid = #{adid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        NickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        Province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        City = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        Country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null">
+        HeadImgUrl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        Code = #{code,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springmvc.pojo.UserInfo">
+    update userinfo
+    set OpenId = #{openid,jdbcType=VARCHAR},
+      Adid = #{adid,jdbcType=VARCHAR},
+      NickName = #{nickname,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=VARCHAR},
+      Province = #{province,jdbcType=VARCHAR},
+      City = #{city,jdbcType=VARCHAR},
+      Country = #{country,jdbcType=VARCHAR},
+      HeadImgUrl = #{headimgurl,jdbcType=VARCHAR},
+      Code = #{code,jdbcType=INTEGER},
+      Remarks = #{remarks,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

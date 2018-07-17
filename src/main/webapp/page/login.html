@@ -45,30 +45,9 @@
 </body>
 <script>
     function commit() {
-        var name = $("#inputUser").val()
-        var password = $("#inputPassword").val()
-        window.location.href = "/page/index.html";
-
-        /*
-                $.ajax({
-                    url: '/login/check.do',
-                    type: 'POST', //GET
-                    async: true,    //或false,是否异步
-                    data: {
-                        name: name,
-                        password: password,
-                    },
-                    timeout: 5000,    //超时时间
-                    dataType: 'json',    //返回的数据格式：json/xml/html/script/jsonp/text
-                    success: function (data) {
-                        console.log("data:" + data.level);
-                    },
-                    error: function (xhr, textStatus) {
-                        console.log('错误')
-                        console.log(xhr)
-                        console.log(textStatus)
-                    },
-                })*/
+        var name = $("#inputUser").val();
+        var password = $("#inputPassword").val();
+        // window.location.href = "/page/index.html";
     }
 </script>
 </html>
