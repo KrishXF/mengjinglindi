@@ -1,25 +1,24 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.6.40 : Database - farmer
-*********************************************************************
-*/
+Navicat MySQL Data Transfer
 
-/*!40101 SET NAMES utf8 */;
+Source Server         : project
+Source Server Version : 50639
+Source Host           : localhost:3306
+Source Database       : farmer
 
-/*!40101 SET SQL_MODE=''*/;
+Target Server Type    : MYSQL
+Target Server Version : 50639
+File Encoding         : 65001
 
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`farmer` /*!40100 DEFAULT CHARACTER SET utf8 */;
+Date: 2018-07-17 22:35:18
+*/
 
-USE `farmer`;
+SET FOREIGN_KEY_CHECKS=0;
 
-/*Table structure for table `admin` */
-
+-- ----------------------------
+-- Table structure for admin
+-- ----------------------------
 DROP TABLE IF EXISTS `admin`;
-
 CREATE TABLE `admin` (
   `Id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `Adid` varchar(20) DEFAULT NULL COMMENT '根据openId生成注册用户id',
@@ -34,12 +33,10 @@ CREATE TABLE `admin` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `admin` */
-
-/*Table structure for table `card` */
-
+-- ----------------------------
+-- Table structure for card
+-- ----------------------------
 DROP TABLE IF EXISTS `card`;
-
 CREATE TABLE `card` (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
   `CardId` int(10) DEFAULT NULL COMMENT '卡券ID',
@@ -56,12 +53,10 @@ CREATE TABLE `card` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Data for the table `card` */
-
-/*Table structure for table `orderdetail` */
-
+-- ----------------------------
+-- Table structure for orderdetail
+-- ----------------------------
 DROP TABLE IF EXISTS `orderdetail`;
-
 CREATE TABLE `orderdetail` (
   `Id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `OrderId` varchar(20) CHARACTER SET latin1 DEFAULT NULL COMMENT '12位订单号',
@@ -72,7 +67,7 @@ CREATE TABLE `orderdetail` (
   `TotlePrice` int(10) DEFAULT NULL COMMENT '总价',
   `OrderState` int(10) DEFAULT NULL COMMENT '订单状态',
   `Remarks` varchar(100) CHARACTER SET latin1 DEFAULT NULL COMMENT '备注',
-  `CteateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `CreateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `usingTime` timestamp NULL DEFAULT NULL COMMENT '使用时间',
   `overTime` timestamp NULL DEFAULT NULL COMMENT '过期时间',
   `CardName` varchar(50) DEFAULT NULL COMMENT '卡券名称',
@@ -80,12 +75,10 @@ CREATE TABLE `orderdetail` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `orderdetail` */
-
-/*Table structure for table `userinfo` */
-
+-- ----------------------------
+-- Table structure for userinfo
+-- ----------------------------
 DROP TABLE IF EXISTS `userinfo`;
-
 CREATE TABLE `userinfo` (
   `Id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `OpenId` varchar(50) DEFAULT NULL COMMENT 'OpenId',
@@ -100,10 +93,3 @@ CREATE TABLE `userinfo` (
   `Remarks` varchar(100) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `userinfo` */
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

@@ -1,5 +1,7 @@
 package com.springmvc.pojo;
 
+import java.util.Date;
+
 public class OrderDetail {
     private Integer id;
 
@@ -18,6 +20,16 @@ public class OrderDetail {
     private Integer orderstate;
 
     private String remarks;
+
+    private Date createtime;
+
+    private Date usingtime;
+
+    private Date overtime;
+
+    private String cardname;
+
+    private Byte cardtype;
 
     public Integer getId() {
         return id;
@@ -89,5 +101,45 @@ public class OrderDetail {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public Date getUsingtime() {
+        return usingtime;
+    }
+
+    public void setUsingtime(Date usingtime) {
+        this.usingtime = usingtime;
+    }
+
+    public Date getOvertime() {
+        return overtime;
+    }
+
+    public void setOvertime(Date overtime) {
+        this.overtime = overtime;
+    }
+
+    public String getCardname() {
+        return cardname;
+    }
+
+    public void setCardname(String cardname) {
+        this.cardname = cardname == null ? null : cardname.trim();
+    }
+
+    public Byte getCardtype() {
+        return cardtype;
+    }
+
+    public void setCardtype(Byte cardtype) {
+        this.cardtype = cardtype;
     }
 }

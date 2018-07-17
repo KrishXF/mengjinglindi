@@ -15,7 +15,7 @@ public class Card {
 
     private Date date;
 
-    private String type;
+    private Byte type;
 
     private Integer inventory;
 
@@ -75,12 +75,12 @@ public class Card {
         this.date = date;
     }
 
-    public String getType() {
+    public Byte getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+    public void setType(Byte type) {
+        this.type = type;
     }
 
     public Integer getInventory() {
