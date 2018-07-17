@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.dao.OrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.springmvc.pojo.OrderDetail">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="OrderId" jdbcType="VARCHAR" property="orderid" />
+    <result column="Adid" jdbcType="VARCHAR" property="adid" />
+    <result column="CardId" jdbcType="INTEGER" property="cardid" />
+    <result column="Count" jdbcType="INTEGER" property="count" />
+    <result column="Price" jdbcType="INTEGER" property="price" />
+    <result column="TotlePrice" jdbcType="INTEGER" property="totleprice" />
+    <result column="OrderState" jdbcType="INTEGER" property="orderstate" />
+    <result column="Remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, OrderId, Adid, CardId, Count, Price, TotlePrice, OrderState, Remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orderdetail
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orderdetail
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.springmvc.pojo.OrderDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into orderdetail (OrderId, Adid, CardId, 
+      Count, Price, TotlePrice, 
+      OrderState, Remarks)
+    values (#{orderid,jdbcType=VARCHAR}, #{adid,jdbcType=VARCHAR}, #{cardid,jdbcType=INTEGER}, 
+      #{count,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{totleprice,jdbcType=INTEGER}, 
+      #{orderstate,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springmvc.pojo.OrderDetail">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into orderdetail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        OrderId,
+      </if>
+      <if test="adid != null">
+        Adid,
+      </if>
+      <if test="cardid != null">
+        CardId,
+      </if>
+      <if test="count != null">
+        Count,
+      </if>
+      <if test="price != null">
+        Price,
+      </if>
+      <if test="totleprice != null">
+        TotlePrice,
+      </if>
+      <if test="orderstate != null">
+        OrderState,
+      </if>
+      <if test="remarks != null">
+        Remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="adid != null">
+        #{adid,jdbcType=VARCHAR},
+      </if>
+      <if test="cardid != null">
+        #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="totleprice != null">
+        #{totleprice,jdbcType=INTEGER},
+      </if>
+      <if test="orderstate != null">
+        #{orderstate,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springmvc.pojo.OrderDetail">
+    update orderdetail
+    <set>
+      <if test="orderid != null">
+        OrderId = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="adid != null">
+        Adid = #{adid,jdbcType=VARCHAR},
+      </if>
+      <if test="cardid != null">
+        CardId = #{cardid,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        Count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        Price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="totleprice != null">
+        TotlePrice = #{totleprice,jdbcType=INTEGER},
+      </if>
+      <if test="orderstate != null">
+        OrderState = #{orderstate,jdbcType=INTEGER},
+      </if>
+      <if test="remarks != null">
+        Remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springmvc.pojo.OrderDetail">
+    update orderdetail
+    set OrderId = #{orderid,jdbcType=VARCHAR},
+      Adid = #{adid,jdbcType=VARCHAR},
+      CardId = #{cardid,jdbcType=INTEGER},
+      Count = #{count,jdbcType=INTEGER},
+      Price = #{price,jdbcType=INTEGER},
+      TotlePrice = #{totleprice,jdbcType=INTEGER},
+      OrderState = #{orderstate,jdbcType=INTEGER},
+      Remarks = #{remarks,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
