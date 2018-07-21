@@ -13,7 +13,7 @@ public class Card {
 
     private String img;
 
-    private Date date;
+    private Integer timestrap;
 
     private Byte type;
 
@@ -24,6 +24,12 @@ public class Card {
     private Integer cardstate;
 
     private String remarks;
+
+    private Date startdate;
+
+    private Date enddate;
+
+    private String timeremarks;
 
     private String introduc;
 
@@ -67,12 +73,12 @@ public class Card {
         this.img = img == null ? null : img.trim();
     }
 
-    public Date getDate() {
-        return date;
+    public Integer getTimestrap() {
+        return timestrap;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimestrap(Integer timestrap) {
+        this.timestrap = timestrap;
     }
 
     public Byte getType() {
@@ -113,6 +119,30 @@ public class Card {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+    public Date getStartdate() {
+        return startdate;
+    }
+
+    public void setStartdate(Date startdate) {
+        this.startdate = startdate;
+    }
+
+    public Date getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(Date enddate) {
+        this.enddate = enddate;
+    }
+
+    public String getTimeremarks() {
+        return timeremarks;
+    }
+
+    public void setTimeremarks(String timeremarks) {
+        this.timeremarks = timeremarks == null ? null : timeremarks.trim();
     }
 
     public String getIntroduc() {

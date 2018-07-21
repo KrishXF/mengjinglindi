@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50639
 File Encoding         : 65001
 
-Date: 2018-07-17 22:35:18
+Date: 2018-07-21 14:45:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -44,12 +44,15 @@ CREATE TABLE `card` (
   `Price` int(10) DEFAULT NULL COMMENT '卡券价格',
   `Introduc` text COMMENT '产品介绍',
   `Img` varchar(100) DEFAULT NULL COMMENT '产品图片',
-  `Date` datetime DEFAULT NULL COMMENT '卡券有效期',
+  `Timestrap` int(10) DEFAULT NULL COMMENT '创建时间',
   `Type` tinyint(4) DEFAULT NULL COMMENT '卡券种类',
   `Inventory` int(10) DEFAULT NULL COMMENT '剩余库存',
   `Soldnum` int(10) DEFAULT NULL COMMENT '卖出数量',
   `CardState` int(10) DEFAULT NULL COMMENT '卡券状态：可用，过期',
   `Remarks` varchar(100) DEFAULT NULL COMMENT '备注',
+  `StartDate` datetime DEFAULT NULL COMMENT '卡券开始时间',
+  `EndDate` datetime DEFAULT NULL COMMENT '卡券结束时间',
+  `TimeRemarks` varchar(50) DEFAULT NULL COMMENT '时间备注',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

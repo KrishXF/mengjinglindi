@@ -7,18 +7,22 @@
         <result column="Name" jdbcType="VARCHAR" property="name"/>
         <result column="Price" jdbcType="INTEGER" property="price"/>
         <result column="Img" jdbcType="VARCHAR" property="img"/>
-        <result column="Date" jdbcType="TIMESTAMP" property="date"/>
+        <result column="Timestrap" jdbcType="INTEGER" property="timestrap"/>
         <result column="Type" jdbcType="TINYINT" property="type"/>
         <result column="Inventory" jdbcType="INTEGER" property="inventory"/>
         <result column="Soldnum" jdbcType="INTEGER" property="soldnum"/>
         <result column="CardState" jdbcType="INTEGER" property="cardstate"/>
         <result column="Remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="StartDate" jdbcType="TIMESTAMP" property="startdate"/>
+        <result column="EndDate" jdbcType="TIMESTAMP" property="enddate"/>
+        <result column="TimeRemarks" jdbcType="VARCHAR" property="timeremarks"/>
     </resultMap>
     <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.springmvc.pojo.Card">
         <result column="Introduc" jdbcType="LONGVARCHAR" property="introduc"/>
     </resultMap>
     <sql id="Base_Column_List">
-    Id, CardId, Name, Price, Img, Date, Type, Inventory, Soldnum, CardState, Remarks
+    Id, CardId, Name, Price, Img, Timestrap, Type, Inventory, Soldnum, CardState, Remarks,
+    StartDate, EndDate, TimeRemarks
   </sql>
     <sql id="Blob_Column_List">
     Introduc
@@ -40,13 +44,15 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
         insert into card (CardId, Name, Price,
-        Img, Date, Type,
+        Img, Timestrap, Type,
         Inventory, Soldnum, CardState,
-        Remarks, Introduc)
+        Remarks, StartDate, EndDate,
+        TimeRemarks, Introduc)
         values (#{cardid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER},
-        #{img,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, #{type,jdbcType=TINYINT},
+        #{img,jdbcType=VARCHAR}, #{timestrap,jdbcType=INTEGER}, #{type,jdbcType=TINYINT},
         #{inventory,jdbcType=INTEGER}, #{soldnum,jdbcType=INTEGER}, #{cardstate,jdbcType=INTEGER},
-        #{remarks,jdbcType=VARCHAR}, #{introduc,jdbcType=LONGVARCHAR})
+        #{remarks,jdbcType=VARCHAR}, #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP},
+        #{timeremarks,jdbcType=VARCHAR}, #{introduc,jdbcType=LONGVARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.springmvc.pojo.Card">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -66,8 +72,8 @@
             <if test="img != null">
                 Img,
             </if>
-            <if test="date != null">
-                Date,
+            <if test="timestrap != null">
+                Timestrap,
             </if>
             <if test="type != null">
                 Type,
@@ -83,6 +89,15 @@
             </if>
             <if test="remarks != null">
                 Remarks,
+            </if>
+            <if test="startdate != null">
+                StartDate,
+            </if>
+            <if test="enddate != null">
+                EndDate,
+            </if>
+            <if test="timeremarks != null">
+                TimeRemarks,
             </if>
             <if test="introduc != null">
                 Introduc,
@@ -101,8 +116,8 @@
             <if test="img != null">
                 #{img,jdbcType=VARCHAR},
             </if>
-            <if test="date != null">
-                #{date,jdbcType=TIMESTAMP},
+            <if test="timestrap != null">
+                #{timestrap,jdbcType=INTEGER},
             </if>
             <if test="type != null">
                 #{type,jdbcType=TINYINT},
@@ -118,6 +133,15 @@
             </if>
             <if test="remarks != null">
                 #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="startdate != null">
+                #{startdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enddate != null">
+                #{enddate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="timeremarks != null">
+                #{timeremarks,jdbcType=VARCHAR},
             </if>
             <if test="introduc != null">
                 #{introduc,jdbcType=LONGVARCHAR},
@@ -139,8 +163,8 @@
             <if test="img != null">
                 Img = #{img,jdbcType=VARCHAR},
             </if>
-            <if test="date != null">
-                Date = #{date,jdbcType=TIMESTAMP},
+            <if test="timestrap != null">
+                Timestrap = #{timestrap,jdbcType=INTEGER},
             </if>
             <if test="type != null">
                 Type = #{type,jdbcType=TINYINT},
@@ -157,6 +181,15 @@
             <if test="remarks != null">
                 Remarks = #{remarks,jdbcType=VARCHAR},
             </if>
+            <if test="startdate != null">
+                StartDate = #{startdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enddate != null">
+                EndDate = #{enddate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="timeremarks != null">
+                TimeRemarks = #{timeremarks,jdbcType=VARCHAR},
+            </if>
             <if test="introduc != null">
                 Introduc = #{introduc,jdbcType=LONGVARCHAR},
             </if>
@@ -169,12 +202,15 @@
       Name = #{name,jdbcType=VARCHAR},
       Price = #{price,jdbcType=INTEGER},
       Img = #{img,jdbcType=VARCHAR},
-      Date = #{date,jdbcType=TIMESTAMP},
+      Timestrap = #{timestrap,jdbcType=INTEGER},
       Type = #{type,jdbcType=TINYINT},
       Inventory = #{inventory,jdbcType=INTEGER},
       Soldnum = #{soldnum,jdbcType=INTEGER},
       CardState = #{cardstate,jdbcType=INTEGER},
       Remarks = #{remarks,jdbcType=VARCHAR},
+      StartDate = #{startdate,jdbcType=TIMESTAMP},
+      EndDate = #{enddate,jdbcType=TIMESTAMP},
+      TimeRemarks = #{timeremarks,jdbcType=VARCHAR},
       Introduc = #{introduc,jdbcType=LONGVARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
@@ -184,12 +220,15 @@
       Name = #{name,jdbcType=VARCHAR},
       Price = #{price,jdbcType=INTEGER},
       Img = #{img,jdbcType=VARCHAR},
-      Date = #{date,jdbcType=TIMESTAMP},
+      Timestrap = #{timestrap,jdbcType=INTEGER},
       Type = #{type,jdbcType=TINYINT},
       Inventory = #{inventory,jdbcType=INTEGER},
       Soldnum = #{soldnum,jdbcType=INTEGER},
       CardState = #{cardstate,jdbcType=INTEGER},
-      Remarks = #{remarks,jdbcType=VARCHAR}
+      Remarks = #{remarks,jdbcType=VARCHAR},
+      StartDate = #{startdate,jdbcType=TIMESTAMP},
+      EndDate = #{enddate,jdbcType=TIMESTAMP},
+      TimeRemarks = #{timeremarks,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
