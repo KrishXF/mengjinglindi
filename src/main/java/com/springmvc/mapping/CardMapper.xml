@@ -231,4 +231,8 @@
       TimeRemarks = #{timeremarks,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
+
+    <select id="getCardList" resultType="com.springmvc.pojo.Card">
+        select * from Card
+    </select>
 </mapper>

@@ -1,4 +1,3 @@
-
 package com.springmvc.service;
 
 import com.springmvc.config.WxMpConfig;
@@ -18,10 +17,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
-
 @Service
 public class WeixinService extends WxMpServiceImpl {
-
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -63,10 +60,12 @@ public class WeixinService extends WxMpServiceImpl {
         config.setSecret(this.wxConfig.getAppsecret());// 设置微信公众号的app corpSecret
         config.setToken(this.wxConfig.getToken());// 设置微信公众号的token
         config.setAesKey(this.wxConfig.getAesKey());// 设置消息加解密密钥
-//        super.setWxMpConfigStorage(config);
+
+        super.setWxMpConfigStorage(config);
 
         this.refreshRouter();
     }
+
     private void refreshRouter() {
         final WxMpMessageRouter newRouter = new WxMpMessageRouter(this);
 

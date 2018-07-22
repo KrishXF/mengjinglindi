@@ -44,7 +44,7 @@ public class OrderDetail {
     }
 
     public void setOrderid(String orderid) {
-        this.orderid = orderid == null ? null : orderid.trim();
+        this.orderid = orderid;
     }
 
     public String getAdid() {
@@ -52,7 +52,7 @@ public class OrderDetail {
     }
 
     public void setAdid(String adid) {
-        this.adid = adid == null ? null : adid.trim();
+        this.adid = adid;
     }
 
     public Integer getCardid() {
@@ -100,7 +100,7 @@ public class OrderDetail {
     }
 
     public void setRemarks(String remarks) {
-        this.remarks = remarks == null ? null : remarks.trim();
+        this.remarks = remarks;
     }
 
     public Date getCreatetime() {
@@ -132,7 +132,7 @@ public class OrderDetail {
     }
 
     public void setCardname(String cardname) {
-        this.cardname = cardname == null ? null : cardname.trim();
+        this.cardname = cardname;
     }
 
     public Byte getCardtype() {

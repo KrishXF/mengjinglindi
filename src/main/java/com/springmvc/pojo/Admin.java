@@ -1,26 +1,6 @@
 package com.springmvc.pojo;
 
 public class Admin {
-    private Integer id;
-
-    private String adid;
-
-    private String account;
-
-    private String password;
-
-    private String name;
-
-    private Integer sex;
-
-    private Integer phone;
-
-    private String address;
-
-    private String timestamp;
-
-    private String remarks;
-
     public Integer getId() {
         return id;
     }
@@ -34,7 +14,7 @@ public class Admin {
     }
 
     public void setAdid(String adid) {
-        this.adid = adid == null ? null : adid.trim();
+        this.adid = adid;
     }
 
     public String getAccount() {
@@ -42,7 +22,7 @@ public class Admin {
     }
 
     public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
+        this.account = account;
     }
 
     public String getPassword() {
@@ -50,7 +30,7 @@ public class Admin {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
     public String getName() {
@@ -58,7 +38,7 @@ public class Admin {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public Integer getSex() {
@@ -82,7 +62,7 @@ public class Admin {
     }
 
     public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+        this.address = address;
     }
 
     public String getTimestamp() {
@@ -90,7 +70,7 @@ public class Admin {
     }
 
     public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp == null ? null : timestamp.trim();
+        this.timestamp = timestamp;
     }
 
     public String getRemarks() {
@@ -98,6 +78,28 @@ public class Admin {
     }
 
     public void setRemarks(String remarks) {
-        this.remarks = remarks == null ? null : remarks.trim();
+        this.remarks = remarks;
     }
+
+    private Integer id;
+
+    private String adid;
+
+    private String account;
+
+    private String password;
+
+    private String name;
+
+    private Integer sex;
+
+    private Integer phone;
+
+    private String address;
+
+    private String timestamp;
+
+    private String remarks;
+
+
 }

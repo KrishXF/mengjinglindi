@@ -36,7 +36,7 @@ public class UserInfo {
     }
 
     public void setOpenid(String openid) {
-        this.openid = openid == null ? null : openid.trim();
+        this.openid = openid;
     }
 
     public String getAdid() {
@@ -44,7 +44,7 @@ public class UserInfo {
     }
 
     public void setAdid(String adid) {
-        this.adid = adid == null ? null : adid.trim();
+        this.adid = adid;
     }
 
     public String getNickname() {
@@ -52,7 +52,7 @@ public class UserInfo {
     }
 
     public void setNickname(String nickname) {
-        this.nickname = nickname == null ? null : nickname.trim();
+        this.nickname = nickname;
     }
 
     public String getSex() {
@@ -60,7 +60,7 @@ public class UserInfo {
     }
 
     public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
+        this.sex = sex;
     }
 
     public String getProvince() {
@@ -68,7 +68,7 @@ public class UserInfo {
     }
 
     public void setProvince(String province) {
-        this.province = province == null ? null : province.trim();
+        this.province = province;
     }
 
     public String getCity() {
@@ -76,7 +76,7 @@ public class UserInfo {
     }
 
     public void setCity(String city) {
-        this.city = city == null ? null : city.trim();
+        this.city = city;
     }
 
     public String getCountry() {
@@ -84,7 +84,7 @@ public class UserInfo {
     }
 
     public void setCountry(String country) {
-        this.country = country == null ? null : country.trim();
+        this.country = country;
     }
 
     public String getHeadimgurl() {
@@ -92,7 +92,7 @@ public class UserInfo {
     }
 
     public void setHeadimgurl(String headimgurl) {
-        this.headimgurl = headimgurl == null ? null : headimgurl.trim();
+        this.headimgurl = headimgurl;
     }
 
     public Integer getCode() {
@@ -108,6 +108,6 @@ public class UserInfo {
     }
 
     public void setRemarks(String remarks) {
-        this.remarks = remarks == null ? null : remarks.trim();
+        this.remarks = remarks;
     }
 }

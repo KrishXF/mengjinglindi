@@ -33,6 +33,7 @@ public class Card {
 
     private String introduc;
 
+
     public Integer getId() {
         return id;
     }
@@ -54,7 +55,7 @@ public class Card {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public Integer getPrice() {
@@ -70,7 +71,7 @@ public class Card {
     }
 
     public void setImg(String img) {
-        this.img = img == null ? null : img.trim();
+        this.img = img;
     }
 
     public Integer getTimestrap() {
@@ -118,7 +119,7 @@ public class Card {
     }
 
     public void setRemarks(String remarks) {
-        this.remarks = remarks == null ? null : remarks.trim();
+        this.remarks = remarks;
     }
 
     public Date getStartdate() {
@@ -142,7 +143,7 @@ public class Card {
     }
 
     public void setTimeremarks(String timeremarks) {
-        this.timeremarks = timeremarks == null ? null : timeremarks.trim();
+        this.timeremarks = timeremarks;
     }
 
     public String getIntroduc() {
@@ -150,6 +151,8 @@ public class Card {
     }
 
     public void setIntroduc(String introduc) {
-        this.introduc = introduc == null ? null : introduc.trim();
+        this.introduc = introduc;
     }
+
+
 }
