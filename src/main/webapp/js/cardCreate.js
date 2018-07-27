@@ -14,8 +14,8 @@
         "              \"description\": \"不可与其他优惠同享\"," +
         "              \"date_info\": {" +
         "                  \"type\": \"DATE_TYPE_FIX_TIME_RANGE\"," +
-        "                  \"begin_timestamp\": 1532440982," +
-        "                  \"end_timestamp\": 1533045782" +
+        "                  \"begin_timestamp\": 1532880000," +
+        "                  \"end_timestamp\": 1535644800" +
         "              }," +
         "              \"sku\": {" +
         "                  \"quantity\": 10" +
@@ -35,7 +35,7 @@
         "  }" +
         "}";
     var baseInfo = document.getElementById("baseInfo").value ="";
-    var localInfo = document.getElementById("localInfo").value = "{\"Introduc\":\"Introduc\",\"Name\":\"Name\",\"Price\":\"Price\",\"Type\":1,\"Inventory\":\"Inventory\",\"Remarks\":\"Remarks\",\"StartDate\":\"StartDate\",\"EndDate\":\"EndDate\",\"TimeRemarks\":\"TimeRemarks\"}"
+    var localInfo = document.getElementById("localJson").value = "{\"Introduc\":\"Introduc\",\"Name\":\"测试用自领取券test\",\"Price\":10000,\"Type\":1,\"Inventory\":10,\"Remarks\":\"Remarks\",\"StartDate\":\"2018-7-30\",\"EndDate\":\"2019-8-31\",\"TimeRemarks\":\"TimeRemarks\"}"
 })();
 
 //图片上传

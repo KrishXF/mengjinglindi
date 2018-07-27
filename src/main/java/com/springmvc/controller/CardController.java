@@ -35,7 +35,7 @@ public class CardController {
             logger.error(ex.getMessage());
             return Result.error(CodeMsg.Failed,ex.getMessage());
         }
-    };
+    }
     @RequestMapping("/getCardInfo.do")
     @ResponseBody
     public Result getCardInfo(HttpServletRequest request, HttpServletResponse response){
@@ -47,7 +47,7 @@ public class CardController {
             logger.error(ex.getMessage());
             return  Result.error(CodeMsg.Failed,ex.getMessage());
         }
-    };
+    }
 
 
     @RequestMapping("/insertCard.do")
