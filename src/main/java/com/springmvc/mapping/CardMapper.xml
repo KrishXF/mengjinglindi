@@ -3,11 +3,11 @@
 <mapper namespace="com.springmvc.dao.CardMapper">
     <resultMap id="BaseResultMap" type="com.springmvc.pojo.Card">
         <id column="Id" jdbcType="INTEGER" property="id"/>
-        <result column="CardId" jdbcType="INTEGER" property="cardid"/>
+        <result column="CardId" jdbcType="VARCHAR" property="cardid"/>
         <result column="Name" jdbcType="VARCHAR" property="name"/>
         <result column="Price" jdbcType="INTEGER" property="price"/>
         <result column="Img" jdbcType="VARCHAR" property="img"/>
-        <result column="Timestrap" jdbcType="INTEGER" property="timestrap"/>
+        <result column="Timestrap" jdbcType="TIMESTAMP" property="timestrap"/>
         <result column="Type" jdbcType="TINYINT" property="type"/>
         <result column="Inventory" jdbcType="INTEGER" property="inventory"/>
         <result column="Soldnum" jdbcType="INTEGER" property="soldnum"/>
@@ -16,22 +16,15 @@
         <result column="StartDate" jdbcType="TIMESTAMP" property="startdate"/>
         <result column="EndDate" jdbcType="TIMESTAMP" property="enddate"/>
         <result column="TimeRemarks" jdbcType="VARCHAR" property="timeremarks"/>
-    </resultMap>
-    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.springmvc.pojo.Card">
         <result column="Introduc" jdbcType="LONGVARCHAR" property="introduc"/>
     </resultMap>
     <sql id="Base_Column_List">
     Id, CardId, Name, Price, Img, Timestrap, Type, Inventory, Soldnum, CardState, Remarks,
-    StartDate, EndDate, TimeRemarks
+    StartDate, EndDate, TimeRemarks,Introduc
   </sql>
-    <sql id="Blob_Column_List">
-    Introduc
-  </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        ,
-        <include refid="Blob_Column_List"/>
         from card
         where Id = #{id,jdbcType=INTEGER}
     </select>
@@ -48,8 +41,8 @@
         Inventory, Soldnum, CardState,
         Remarks, StartDate, EndDate,
         TimeRemarks, Introduc)
-        values (#{cardid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER},
-        #{img,jdbcType=VARCHAR}, #{timestrap,jdbcType=INTEGER}, #{type,jdbcType=TINYINT},
+        values (#{cardid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER},
+        #{img,jdbcType=VARCHAR}, #{timestrap,jdbcType=TIMESTAMP}, #{type,jdbcType=TINYINT},
         #{inventory,jdbcType=INTEGER}, #{soldnum,jdbcType=INTEGER}, #{cardstate,jdbcType=INTEGER},
         #{remarks,jdbcType=VARCHAR}, #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP},
         #{timeremarks,jdbcType=VARCHAR}, #{introduc,jdbcType=LONGVARCHAR})
@@ -105,7 +98,7 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="cardid != null">
-                #{cardid,jdbcType=INTEGER},
+                #{cardid,jdbcType=VARCHAR},
             </if>
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
@@ -117,7 +110,7 @@
                 #{img,jdbcType=VARCHAR},
             </if>
             <if test="timestrap != null">
-                #{timestrap,jdbcType=INTEGER},
+                #{timestrap,jdbcType=TIMESTAMP},
             </if>
             <if test="type != null">
                 #{type,jdbcType=TINYINT},
@@ -152,7 +145,7 @@
         update card
         <set>
             <if test="cardid != null">
-                CardId = #{cardid,jdbcType=INTEGER},
+                CardId = #{cardid,jdbcType=VARCHAR},
             </if>
             <if test="name != null">
                 Name = #{name,jdbcType=VARCHAR},
@@ -164,7 +157,7 @@
                 Img = #{img,jdbcType=VARCHAR},
             </if>
             <if test="timestrap != null">
-                Timestrap = #{timestrap,jdbcType=INTEGER},
+                Timestrap = #{timestrap,jdbcType=TIMESTAMP},
             </if>
             <if test="type != null">
                 Type = #{type,jdbcType=TINYINT},
@@ -198,11 +191,11 @@
     </update>
     <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.springmvc.pojo.Card">
     update card
-    set CardId = #{cardid,jdbcType=INTEGER},
+    set CardId = #{cardid,jdbcType=VARCHAR},
       Name = #{name,jdbcType=VARCHAR},
       Price = #{price,jdbcType=INTEGER},
       Img = #{img,jdbcType=VARCHAR},
-      Timestrap = #{timestrap,jdbcType=INTEGER},
+      Timestrap = #{timestrap,jdbcType=TIMESTAMP},
       Type = #{type,jdbcType=TINYINT},
       Inventory = #{inventory,jdbcType=INTEGER},
       Soldnum = #{soldnum,jdbcType=INTEGER},
@@ -216,11 +209,11 @@
   </update>
     <update id="updateByPrimaryKey" parameterType="com.springmvc.pojo.Card">
     update card
-    set CardId = #{cardid,jdbcType=INTEGER},
+    set CardId = #{cardid,jdbcType=VARCHAR},
       Name = #{name,jdbcType=VARCHAR},
       Price = #{price,jdbcType=INTEGER},
       Img = #{img,jdbcType=VARCHAR},
-      Timestrap = #{timestrap,jdbcType=INTEGER},
+      Timestrap = #{timestrap,jdbcType=TIMESTAMP},
       Type = #{type,jdbcType=TINYINT},
       Inventory = #{inventory,jdbcType=INTEGER},
       Soldnum = #{soldnum,jdbcType=INTEGER},
@@ -231,8 +224,12 @@
       TimeRemarks = #{timeremarks,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
-
-    <select id="getCardList" resultType="com.springmvc.pojo.Card">
-        select * from Card
+    <select id="selectCarList" parameterType="com.springmvc.pojo.Card" resultMap="BaseResultMap">
+        select
+        Id, CardId, Name, Price,Type, Inventory,
+        EndDate
+        from card
+        where  EndDate >= #{enddate,jdbcType=TIMESTAMP}
     </select>
+
 </mapper>

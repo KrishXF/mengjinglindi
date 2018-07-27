@@ -5,7 +5,7 @@
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="OrderId" jdbcType="VARCHAR" property="orderid" />
     <result column="Adid" jdbcType="VARCHAR" property="adid" />
-    <result column="CardId" jdbcType="INTEGER" property="cardid" />
+    <result column="CardId" jdbcType="VARCHAR" property="cardid" />
     <result column="Count" jdbcType="INTEGER" property="count" />
     <result column="Price" jdbcType="INTEGER" property="price" />
     <result column="TotlePrice" jdbcType="INTEGER" property="totleprice" />
@@ -40,7 +40,7 @@
     OrderState, Remarks, CreateTime,
     usingTime, overTime, CardName,
     CardType)
-    values (#{orderid,jdbcType=VARCHAR}, #{adid,jdbcType=VARCHAR}, #{cardid,jdbcType=INTEGER},
+    values (#{orderid,jdbcType=VARCHAR}, #{adid,jdbcType=VARCHAR}, #{cardid,jdbcType=VARCHAR},
     #{count,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{totleprice,jdbcType=INTEGER},
     #{orderstate,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},
     #{usingtime,jdbcType=TIMESTAMP}, #{overtime,jdbcType=TIMESTAMP}, #{cardname,jdbcType=VARCHAR},
@@ -100,7 +100,7 @@
         #{adid,jdbcType=VARCHAR},
       </if>
       <if test="cardid != null">
-        #{cardid,jdbcType=INTEGER},
+        #{cardid,jdbcType=VARCHAR},
       </if>
       <if test="count != null">
         #{count,jdbcType=INTEGER},
@@ -144,7 +144,7 @@
         Adid = #{adid,jdbcType=VARCHAR},
       </if>
       <if test="cardid != null">
-        CardId = #{cardid,jdbcType=INTEGER},
+        CardId = #{cardid,jdbcType=VARCHAR},
       </if>
       <if test="count != null">
         Count = #{count,jdbcType=INTEGER},
@@ -183,7 +183,7 @@
     update orderdetail
     set OrderId = #{orderid,jdbcType=VARCHAR},
       Adid = #{adid,jdbcType=VARCHAR},
-      CardId = #{cardid,jdbcType=INTEGER},
+      CardId = #{cardid,jdbcType=VARCHAR},
       Count = #{count,jdbcType=INTEGER},
       Price = #{price,jdbcType=INTEGER},
       TotlePrice = #{totleprice,jdbcType=INTEGER},
@@ -194,6 +194,27 @@
       overTime = #{overtime,jdbcType=TIMESTAMP},
       CardName = #{cardname,jdbcType=VARCHAR},
       CardType = #{cardtype,jdbcType=TINYINT}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByAdid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from orderdetail
+    where Adid = #{adid,jdbcType=VARCHAR}
+    order by CreateTime desc
+  </select>
+
+  <update id="updateOrderStatus" parameterType="com.springmvc.pojo.OrderDetail">
+    update orderdetail
+    <set>
+      <if test="orderstate != null">
+        OrderState = #{orderstate,jdbcType=INTEGER},
+      </if>
+      <if test="orderstate = 2">
+        usingTime = #{usingtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

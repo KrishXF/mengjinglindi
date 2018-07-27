@@ -2,6 +2,8 @@ package com.springmvc.dao;
 
 import com.springmvc.pojo.OrderDetail;
 
+import java.util.List;
+
 public interface OrderDetailMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,8 @@ public interface OrderDetailMapper {
     int updateByPrimaryKeySelective(OrderDetail record);
 
     int updateByPrimaryKey(OrderDetail record);
+
+    List<OrderDetail> selectByAdid(String cardId);
+
+    int updateOrderStatus(OrderDetail record);
 }

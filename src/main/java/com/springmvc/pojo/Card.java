@@ -5,7 +5,7 @@ import java.util.Date;
 public class Card {
     private Integer id;
 
-    private Integer cardid;
+    private String cardid;
 
     private String name;
 
@@ -13,7 +13,7 @@ public class Card {
 
     private String img;
 
-    private Integer timestrap;
+    private Date timestrap;
 
     private Byte type;
 
@@ -33,7 +33,6 @@ public class Card {
 
     private String introduc;
 
-
     public Integer getId() {
         return id;
     }
@@ -42,11 +41,11 @@ public class Card {
         this.id = id;
     }
 
-    public Integer getCardid() {
+    public String getCardid() {
         return cardid;
     }
 
-    public void setCardid(Integer cardid) {
+    public void setCardid(String cardid) {
         this.cardid = cardid;
     }
 
@@ -55,7 +54,7 @@ public class Card {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public Integer getPrice() {
@@ -71,14 +70,14 @@ public class Card {
     }
 
     public void setImg(String img) {
-        this.img = img;
+        this.img = img == null ? null : img.trim();
     }
 
-    public Integer getTimestrap() {
+    public Date getTimestrap() {
         return timestrap;
     }
 
-    public void setTimestrap(Integer timestrap) {
+    public void setTimestrap(Date timestrap) {
         this.timestrap = timestrap;
     }
 
@@ -119,7 +118,7 @@ public class Card {
     }
 
     public void setRemarks(String remarks) {
-        this.remarks = remarks;
+        this.remarks = remarks == null ? null : remarks.trim();
     }
 
     public Date getStartdate() {
@@ -143,7 +142,7 @@ public class Card {
     }
 
     public void setTimeremarks(String timeremarks) {
-        this.timeremarks = timeremarks;
+        this.timeremarks = timeremarks == null ? null : timeremarks.trim();
     }
 
     public String getIntroduc() {
@@ -151,8 +150,6 @@ public class Card {
     }
 
     public void setIntroduc(String introduc) {
-        this.introduc = introduc;
+        this.introduc = introduc == null ? null : introduc.trim();
     }
-
-
 }
