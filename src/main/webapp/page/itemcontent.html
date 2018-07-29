@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="description" content="列表页面">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+    <!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz -->
+    <title>列表</title>
+    <link href="../jslib/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../css/itemcontent.css" rel="stylesheet">
+    <script src="../js/properties.js"></script>
+    <script src="../jslib/jquery-3.2.1/jquery-3.2.1.min.js"></script>
+    <script src="../jslib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <script src="../jslib/fastclick.js"></script>
+    <script src="../jslib/jweixin-1.2.0.js"></script>
+</head>
+
+<body>
+    <div id='container' class='container'>
+        <div class='row row_style'>
+            <div class='col-xs-12'>
+                <div class="panel panel-default item_row">
+                    <div class="row upon_row">
+                        <div class="col-xs-4 left_card">
+                            <img src="../img/detail-pic@3x.png" alt="" class="img-rounded img_detail">
+                        </div>
+                        <div class="col-xs-8 right_card">
+                            <h4 class='item_name text-right' id='item_name'>商品名</h4>
+                            <h5 class="item_sale text-right" id='item_sale'>零售价：</h5>
+                        </div>
+                    </div>
+                    <div class="row down_row">
+                        <div class="col-xs-7">
+                            <h5 class='text-right item_date' id='item_date'>有效期：</h5>
+                        </div>
+                        <div class="col-xs-5">
+                            <h5 class='text-left item_last' id='item_last'>库存量：</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='row down_container'>
+            <div class="col-xs-4 col-xs-push-1 text-right img_left">
+                <img src="../img/detail-line@2x.png">
+            </div>
+            <div class="col-xs-4 text-center">
+                <mark>产品介绍</mark>
+            </div>
+            <div class="col-xs-4 col-xs-pull-1 text-left img_right">
+                <img src="../img/detail-line@2x.png">
+            </div>
+            <div class="col-xs-12 m_bt_50 m_tp_20">
+                <p id='item_des'>产品介绍</p>
+
+            </div>
+            <!-- <div class="col-xs-4 col-xs-push-1 text-right img_left">
+                <img src="../img/detail-line@2x.png">
+            </div>
+            <div class="col-xs-4 text-center">
+                <mark>购买须知</mark>
+            </div>
+            <div class="col-xs-4 col-xs-pull-1 text-left img_right">
+                <img src="../img/detail-line@2x.png">
+            </div>
+            <div class="col-xs-12 m_tp_20">
+                <img src="../img/detail-notice.png">产品介绍产品介绍产品介绍产品介绍产品介绍产品</p>
+            </div>
+            <div class="col-xs-12">
+                <img src="../img/detail-notice.png">产品介绍产品介绍产品介绍产品介绍产品介绍产品</p>
+            </div>
+            <div class="col-xs-12">
+                <img src="../img/detail-notice.png">产品介绍产品介绍产品介绍产品介绍产品介绍产品</p>
+            </div> -->
+        </div>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <div class="row bottom_row">
+                <div class="col-xs-7">
+                    <div class='bottom_left'>
+                        <h4>数量：
+                            <!-- <img src="../img/detail-sub.png" id='minus_'>  -->
+                            <span id='num_'>1</span>
+                            <!-- <img src="../img/detail-add.png" id='add_'> -->
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-xs-5 col-xs-push-1">
+                    <h4 class="text-center buy_btn" id='buy_btn'>立即购买</h4>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <script src="../jslib/vue.js"></script>
+    <script src="../js/comman_util.js"></script>
+    <script src="../js/itemcontent.js"></script>
+</body>
+
+</html>

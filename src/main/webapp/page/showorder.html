@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../libjs/jquery-3.2.1/jquery-3.2.1.min.js"></script>
+    <script src="../libjs/jquery-easyui-1.5.5.4/jquery.easyui.min.js"></script>
+</head>
+<body>
+
+<button style="" class="btn btn-primary"
+        onclick="reload()" type="submit">刷新
+</button>
+<table id="dg"></table>
+</body>
+
+<script>
+    $(document).ready(function () {
+    $('#dg').datagrid({
+        url:'http://localhost:8080/order/selectByIsUsed.do',
+        columns:[[
+            {field:'cardname',title:'卡券名称',width:100},
+            {field:'name',title:'收货人',width:100},
+            {field:'phone',title:'联系方式',width:100},
+            {field:'goodsusingtimestr',title:'下单时间',width:100},
+            {field:'detailaddress',title:'详细地址',width:100},
+            {field:'orderstate',title:'订单状态',width:100,formatter:function(value,rec){
+                    if(value==3){
+                        return '待发货';
+                    }
+                }},
+            {field:'goodsremark',title:'备注',width:100}
+        ]]
+    });
+    })
+    function reload() {
+        $('#dg').datagrid('reload');
+    }
+
+</script>
+</html>

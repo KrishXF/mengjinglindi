@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="description" content="列表页面">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+    <!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz -->
+    <title>列表</title>
+    <link href="../jslib/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../css/itemlist.css" rel="stylesheet">
+    <script src="../js/properties.js"></script>
+    <script src="../jslib/jquery-3.2.1/jquery-3.2.1.min.js"></script>
+    <script src="../jslib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <script src="../jslib/fastclick.js"></script>
+    <script src="../jslib/jweixin-1.2.0.js"></script>
+</head>
+
+<body>
+    <!-- <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="row">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" class="active col-xs-6">
+                            <a href="#">Home</a>
+                        </li>
+                        <li role="presentation" class="col-xs-6">
+                            <a href="#">Profile</a>
+                        </li>
+                    </ul>
+
+            </div>
+        </div>
+    </nav> -->
+    <div id='container' class='container'>
+
+        <div class="row row_style">
+            <div class="col-xs-6 title_col">
+                <div class='head_title select_title' id='shop_'>
+                    <span>微信卡包</span>
+                </div>
+            </div>
+            <div class="col-xs-6 title_col" >
+                <div class='head_title' id='my_'>
+                    <span>我的卡包</span>
+                </div>
+            </div>
+            <div class="col-xs-6 text-center select_img">
+                <img src="../img/weixin-cardnav.png">
+            </div>
+            <div class="col-xs-6 text-center select_img">
+                <img src="../img/weixin-cardnav.png" class='hidden_item'>
+            </div>
+        </div>
+        <div class="row no_item_page hidden_item">
+            <div class="col-xs-12 text-center" id='no_list_img'>
+                <img src="../img/weixin-card-blankpg.png">
+            </div>
+            <div class="col-xs-12 text-center">
+                空空如也~
+            </div>
+        </div>
+        <div class='item_row_container hidden_item' id='my_card'>
+            <!-- <div class="panel panel-default item_row">
+                <div class="panel-body item_container">
+                    <div class="item_left">
+                        <p class='item_sale'>零售价：123元</p>
+                        <p class='item_name'>商品名BBBBBA</p>
+                        <p class='item_timeup'>有效期：至2018年9月17日</p>
+                    </div>
+                    <div class="item_right">
+                        <p class="badge buy">去使用</p>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class='item_row_container' id='shop_card'>
+            <!-- <div class="panel panel-default item_row">
+                <div class="panel-body item_container">
+                    <div class="item_left">
+                        <p class='item_sale'>零售价：123元</p>
+                        <p class='item_name'>商品名AAAAAAAA</p>
+                        <p class='item_timeup'>有效期：至2018年9月17日</p>
+                    </div>
+                    <div class="item_right">
+                        <p class="badge buy">立即购买</p>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <script src="../jslib/vue.js"></script>
+    <script src="../js/comman_util.js"></script>
+    <script src="../js/itemlist.js"></script>
+</body>
+
+</html>

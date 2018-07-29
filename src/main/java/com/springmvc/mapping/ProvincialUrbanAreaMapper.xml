@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springmvc.dao.ProvincialUrbanAreaMapper">
+    <resultMap id="BaseResultMap" type="com.springmvc.pojo.Province">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="provinceId" property="provinceId" jdbcType="INTEGER"/>
+        <result column="province" property="province" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="CityResultMap" type="com.springmvc.pojo.City">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="cityId" property="cityId" jdbcType="INTEGER"/>
+        <result column="city" property="city" jdbcType="VARCHAR"/>
+        <result column="provinceId" property="provinceId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="AreaResultMap" type="com.springmvc.pojo.Area">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="areaId" property="areaId" jdbcType="INTEGER"/>
+        <result column="area" property="area" jdbcType="VARCHAR"/>
+        <result column="cityId" property="cityId" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getProvinceList" resultMap="BaseResultMap" parameterType="com.springmvc.pojo.Province">
+        select provinceid,province from province
+    </select>
+
+    <select id="cityByProvinceId" resultMap="CityResultMap" parameterType="com.springmvc.pojo.City">
+        select cityid,city from city
+        where provinceId = #{provinceId}
+    </select>
+
+    <select id="areaByCityId" resultMap="AreaResultMap" parameterType="com.springmvc.pojo.Area">
+        select area,areaid from area
+        where cityId = #{cityId}
+    </select>
+
+</mapper>

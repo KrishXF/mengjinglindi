@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../libjs/jquery-3.2.1/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+123
+</body>
+
+<script>
+    $(function () {
+        $.ajax({
+            url: "http://" + window.location.host + "/user/asdf.do",
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+
+            }
+        })
+
+
+    });
+
+</script>
+</html>

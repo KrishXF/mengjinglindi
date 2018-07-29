@@ -8,7 +8,7 @@
         <result column="Price" jdbcType="INTEGER" property="price"/>
         <result column="Img" jdbcType="VARCHAR" property="img"/>
         <result column="Timestrap" jdbcType="TIMESTAMP" property="timestrap"/>
-        <result column="Type" jdbcType="TINYINT" property="type"/>
+        <result column="Type" jdbcType="INTEGER" property="type"/>
         <result column="Inventory" jdbcType="INTEGER" property="inventory"/>
         <result column="Soldnum" jdbcType="INTEGER" property="soldnum"/>
         <result column="CardState" jdbcType="INTEGER" property="cardstate"/>
@@ -42,7 +42,7 @@
         Remarks, StartDate, EndDate,
         TimeRemarks, Introduc)
         values (#{cardid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER},
-        #{img,jdbcType=VARCHAR}, #{timestrap,jdbcType=TIMESTAMP}, #{type,jdbcType=TINYINT},
+        #{img,jdbcType=VARCHAR}, #{timestrap,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER},
         #{inventory,jdbcType=INTEGER}, #{soldnum,jdbcType=INTEGER}, #{cardstate,jdbcType=INTEGER},
         #{remarks,jdbcType=VARCHAR}, #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP},
         #{timeremarks,jdbcType=VARCHAR}, #{introduc,jdbcType=LONGVARCHAR})
@@ -113,7 +113,7 @@
                 #{timestrap,jdbcType=TIMESTAMP},
             </if>
             <if test="type != null">
-                #{type,jdbcType=TINYINT},
+                #{type,jdbcType=INTEGER},
             </if>
             <if test="inventory != null">
                 #{inventory,jdbcType=INTEGER},
@@ -160,7 +160,7 @@
                 Timestrap = #{timestrap,jdbcType=TIMESTAMP},
             </if>
             <if test="type != null">
-                Type = #{type,jdbcType=TINYINT},
+                Type = #{type,jdbcType=INTEGER},
             </if>
             <if test="inventory != null">
                 Inventory = #{inventory,jdbcType=INTEGER},
@@ -196,7 +196,7 @@
       Price = #{price,jdbcType=INTEGER},
       Img = #{img,jdbcType=VARCHAR},
       Timestrap = #{timestrap,jdbcType=TIMESTAMP},
-      Type = #{type,jdbcType=TINYINT},
+      Type = #{type,jdbcType=INTEGER},
       Inventory = #{inventory,jdbcType=INTEGER},
       Soldnum = #{soldnum,jdbcType=INTEGER},
       CardState = #{cardstate,jdbcType=INTEGER},
@@ -214,7 +214,7 @@
       Price = #{price,jdbcType=INTEGER},
       Img = #{img,jdbcType=VARCHAR},
       Timestrap = #{timestrap,jdbcType=TIMESTAMP},
-      Type = #{type,jdbcType=TINYINT},
+      Type = #{type,jdbcType=INTEGER},
       Inventory = #{inventory,jdbcType=INTEGER},
       Soldnum = #{soldnum,jdbcType=INTEGER},
       CardState = #{cardstate,jdbcType=INTEGER},
@@ -231,5 +231,10 @@
         from card
         where  EndDate >= #{enddate,jdbcType=TIMESTAMP}
     </select>
-
+    <select id="selectCarByCardId" parameterType="com.springmvc.pojo.Card" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from card
+        where  CardId = #{cardid,jdbcType=VARCHAR}
+    </select>
 </mapper>

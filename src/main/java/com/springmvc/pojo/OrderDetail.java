@@ -9,7 +9,7 @@ public class OrderDetail {
 
     private String adid;
 
-    private Integer cardid;
+    private String cardid;
 
     private Integer count;
 
@@ -31,6 +31,69 @@ public class OrderDetail {
 
     private Byte cardtype;
 
+    private String detailaddress;
+
+    public Date getGoodsusingtime() {
+        return goodsusingtime;
+    }
+
+    public void setGoodsusingtime(Date goodsusingtime) {
+        this.goodsusingtime = goodsusingtime;
+    }
+
+    private Date goodsusingtime;
+
+    private String phone;
+
+    private String name;
+
+    public String getGoodsremark() {
+        return goodsremark;
+    }
+
+    public void setGoodsremark(String goodsremark) {
+        this.goodsremark = goodsremark;
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDetailaddress() {
+
+        return detailaddress;
+    }
+
+    public void setDetailaddress(String detailaddress) {
+        this.detailaddress = detailaddress;
+    }
+
+    private  String goodsremark;
+
+    public String getWxcode() {
+        return wxcode;
+    }
+
+    public void setWxcode(String wxcode) {
+        this.wxcode = wxcode;
+    }
+
+    private String wxcode;
+
     public Integer getId() {
         return id;
     }
@@ -44,7 +107,7 @@ public class OrderDetail {
     }
 
     public void setOrderid(String orderid) {
-        this.orderid = orderid;
+        this.orderid = orderid == null ? null : orderid.trim();
     }
 
     public String getAdid() {
@@ -52,14 +115,14 @@ public class OrderDetail {
     }
 
     public void setAdid(String adid) {
-        this.adid = adid;
+        this.adid = adid == null ? null : adid.trim();
     }
 
-    public Integer getCardid() {
+    public String getCardid() {
         return cardid;
     }
 
-    public void setCardid(Integer cardid) {
+    public void setCardid(String cardid) {
         this.cardid = cardid;
     }
 
@@ -100,7 +163,7 @@ public class OrderDetail {
     }
 
     public void setRemarks(String remarks) {
-        this.remarks = remarks;
+        this.remarks = remarks == null ? null : remarks.trim();
     }
 
     public Date getCreatetime() {
@@ -132,7 +195,7 @@ public class OrderDetail {
     }
 
     public void setCardname(String cardname) {
-        this.cardname = cardname;
+        this.cardname = cardname == null ? null : cardname.trim();
     }
 
     public Byte getCardtype() {

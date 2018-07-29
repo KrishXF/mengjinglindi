@@ -2,16 +2,13 @@ package com.springmvc.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.springmvc.pojo.WxCardBaseInfo;
-import com.springmvc.pojo.WxCardCash;
 import com.springmvc.pojo.WxCardGroupon;
 import com.springmvc.util.HttpRequestUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 //创建卡券
 public class CardsCreateService {
@@ -24,8 +21,10 @@ public class CardsCreateService {
 
     private final static String BASEINFO = "base_info";
 
+    private final static String ADVANCEDINFO = "advanced_info";
+
     //上传logo方法，执行完成，保存返回的logo url
-    public String uploadLogo(String filePath,String accessToken){
+    public String uploadLogo(String filePath, String accessToken) {
         try {
 
             // 上传文件请求路径
@@ -113,20 +112,20 @@ public class CardsCreateService {
     }
 
     //创建卡券
-    public  String createCardToWexin(String logoUrl,String baseUrl, String content,String accessToken) {
+    public String createCardToWexin(String logoUrl, String baseUrl, String content, String accessToken,List<String> filePathList) {
         JSONObject jsonCardInfo = JSON.parseObject(content);
-        JSONObject jsonObjectCARD= jsonCardInfo.getJSONObject(CARD);
-        JSONObject jsonObjectGROUPON= jsonObjectCARD.getJSONObject(GROUPON);
-        JSONObject jsonObjectBaseInfo= jsonObjectGROUPON.getJSONObject(BASEINFO);
-        jsonObjectBaseInfo.put("logo_url",logoUrl);
-        String baseInfo = jsonObjectBaseInfo.getString("abstract");
+        JSONObject jsonObjectCARD = jsonCardInfo.getJSONObject(CARD);
+        JSONObject jsonObjectGROUPON = jsonObjectCARD.getJSONObject(GROUPON);
+        JSONObject jsonObjectBaseInfo = jsonObjectGROUPON.getJSONObject(BASEINFO);
+        JSONObject jsonObjectAdvancedInfo = jsonObjectGROUPON.getJSONObject(ADVANCEDINFO);
+        jsonObjectBaseInfo.put("logo_url", logoUrl);
         WxCardGroupon wxGroupon = new WxCardGroupon();
-        wxGroupon.getAdvancedInfo().setIconUrl(baseUrl);
-        wxGroupon.getAdvancedInfo().setBaseDescription(baseInfo);
-        wxGroupon.getWxGrouponInfo(jsonObjectBaseInfo,wxGroupon.getBaseInfo());
+        wxGroupon.setWxGrouponBaseInfo(jsonObjectBaseInfo, wxGroupon.getBaseInfo());
+        wxGroupon.setWxGrouponAdvancedInfo(jsonObjectAdvancedInfo, wxGroupon.getAdvancedInfo(),baseUrl, filePathList);
         wxGroupon.setDealDetail(jsonObjectCARD.getString("deal_detail"));
         String returnData = "";
-        returnData = HttpRequestUtil.getResponse(CREAT_CARD_URL+accessToken,wxGroupon.toJsonString());
+        System.out.println(wxGroupon.toJsonString());
+        returnData = HttpRequestUtil.getResponse(CREAT_CARD_URL + accessToken, wxGroupon.toJsonString());
 
         JSONObject jsonReturnData = JSON.parseObject(returnData);
         String cardID = "";

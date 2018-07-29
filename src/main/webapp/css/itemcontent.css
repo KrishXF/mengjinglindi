@@ -1,0 +1,75 @@
+html,body{
+    height: 100%;
+    width: 100%;
+    background: #F9F7F8;
+}
+html,body{
+}
+.m_bt_50{
+    margin-bottom: 50px;
+}
+.m_tp_20{
+    margin-top:20px;
+}
+.row_style{
+    background: #fff;
+    height: 190px; 
+}
+.item_row{
+    margin-top: 10px;
+    height: 170px;
+    -moz-box-shadow: 0px 5px 10px #888888;
+    box-shadow: 0px 5px 10px #F0F0F0;
+    background: url(../img/detail-cardbg@3x.png);
+    background-size: 400px 205px;
+    background-position-x: -13px;
+    background-position-y: -3px;
+}
+.upon_row{
+    height: 130px;
+    color: #fff;
+}
+img.img_detail{
+    width: 100%;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.down_row{
+    height: 30px;
+    line-height: 30px;
+    color: #B7B7B7;
+    background-color: #fff;
+    /* font-size: 14px; */
+    margin-left: 0px;
+    margin-right: 0px;
+}
+h4.item_name{
+    margin-top: 20px;  
+    margin-right: 10px;
+}
+h5.item_sale{ 
+    margin-right: 10px;
+}
+h5.item_date{
+    padding-left: 0px;
+}
+h5.item_last{
+    padding-right: 0px;
+}
+.down_container{
+    height: 600px;
+    margin-top: 18px;
+    background: #fff;
+}
+.bottom_row{
+    background-image: url("../img/detail-btn.png");
+    color: #fff;
+}
+.bottom_left h4 img{
+    width: 18px;
+}
+.buy_btn{
+    color:#E3AE3E;
+    padding-top: 5px;
+
+}

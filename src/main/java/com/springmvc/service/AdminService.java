@@ -1,5 +1,10 @@
 package com.springmvc.service;
 
-public interface AdminService {
+import com.springmvc.pojo.Admin;
 
+import java.util.Map;
+
+
+public interface AdminService {
+    Admin  getAdmin( int id);
 }

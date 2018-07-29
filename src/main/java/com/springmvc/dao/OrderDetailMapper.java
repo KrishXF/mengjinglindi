@@ -1,5 +1,6 @@
 package com.springmvc.dao;
 
+import com.springmvc.dto.OrderDetailDto;
 import com.springmvc.pojo.OrderDetail;
 
 import java.util.List;
@@ -20,4 +21,14 @@ public interface OrderDetailMapper {
     List<OrderDetail> selectByAdid(String cardId);
 
     int updateOrderStatus(OrderDetail record);
+
+    int updateOrderWXCode(OrderDetail record);
+
+    int UpdateOrderGoodsList(List<OrderDetail> orderDetailList);
+
+    int UpdateOrderGoods(OrderDetail orderDetail);
+
+    OrderDetail getOrderInfoByWxCode(String wxcode);
+
+    List<OrderDetailDto> selectByIsUsed();
 }

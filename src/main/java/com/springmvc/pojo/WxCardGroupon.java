@@ -4,7 +4,10 @@ package com.springmvc.pojo;/*
  * and open the template in the editor.
  */
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import java.util.List;
 
 /**
  *
@@ -28,7 +31,7 @@ public class WxCardGroupon extends WxCard
         return m_data.getString("default_detail");
     }
 
-    public void getWxGrouponInfo(JSONObject baseInfo, WxCardBaseInfo cashBaseInfo){
+    public void setWxGrouponBaseInfo(JSONObject baseInfo, WxCardBaseInfo cashBaseInfo){
         cashBaseInfo.setLogoUrl(baseInfo.getString("logo_url"));
         cashBaseInfo.setBrandName(baseInfo.getString("brand_name"));
         cashBaseInfo.setCodeType(baseInfo.getString("code_type"));
@@ -50,5 +53,23 @@ public class WxCardGroupon extends WxCard
         cashBaseInfo.setCustomUrl(baseInfo.getString("custom_url"));
         cashBaseInfo.setCustomUrlSubTitle(baseInfo.getString("custom_url_sub_title"));
         System.out.println(cashBaseInfo.toJsonString());
+    }
+
+
+    public void setWxGrouponAdvancedInfo(JSONObject JsonAdvancedInfo, WxCardAdvancedInfo advancedInfo,String baseUrl,List<String> filePathList){
+        advancedInfo.setAcceptCategory(JsonAdvancedInfo.getString("accept_category"));
+        advancedInfo.setRejectCategory(JsonAdvancedInfo.getString("reject_category"));
+        advancedInfo.setLeastCost(JsonAdvancedInfo.getString("least_cost"));
+        advancedInfo.setAbstractInfo(JsonAdvancedInfo.getString("abstract"));
+        advancedInfo.setIconUrl(baseUrl);
+        advancedInfo.setOjectUseFor(JsonAdvancedInfo.getString("object_use_for"));
+        JSONArray imageArray = JsonAdvancedInfo.getJSONArray("text_image_list");
+        for (int i = 0; i < imageArray.size(); i++) {
+            JSONObject imageText = (JSONObject)imageArray.get(i);
+            String text = imageText.getString("text");
+            String textUrl = filePathList.get(i);
+            advancedInfo.setTextImageList(textUrl,text);
+        }
+        System.out.println(advancedInfo.toJsonString());
     }
 }

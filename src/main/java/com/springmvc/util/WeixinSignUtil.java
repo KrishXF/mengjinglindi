@@ -1,5 +1,7 @@
 package com.springmvc.util;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -7,20 +9,15 @@ import java.util.*;
  * Created by xiaomi on 2017/8/28.
  */
 public class WeixinSignUtil {
-    public static String createSignBySha1(SortedMap<Object, Object> params) {
+    public static String createSignBySha1(ArrayList<String> list) {
+        Collections.sort(list);
         StringBuffer sb = new StringBuffer();
-        Set es = params.entrySet();
-        Iterator it = es.iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            String k = (String) entry.getKey();
-            String v = (String) entry.getValue();
-            if (v != null && !v.equals("")) {
-                sb.append(k + "=" + v + "&");
-            }
+        for (String param:list) {
+            sb.append(param);
         }
-        String result = sb.toString().substring(0, sb.toString().length()-1);
-        return SHA1Util.getSHA(result);
+        String result = sb.toString();
+
+        return DigestUtils.shaHex(result);
     }
 
     /**

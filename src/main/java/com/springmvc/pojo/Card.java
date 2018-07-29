@@ -15,7 +15,7 @@ public class Card {
 
     private Date timestrap;
 
-    private Byte type;
+    private Integer type;
 
     private Integer inventory;
 
@@ -81,11 +81,11 @@ public class Card {
         this.timestrap = timestrap;
     }
 
-    public Byte getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Byte type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 

@@ -1,0 +1,144 @@
+@charset "utf-8";
+/*reset start*/
+
+/* html,body,
+h1,h2,h3,h4,h5,h6,
+div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,
+table,caption,th,td,form,fieldset,
+legend,input,button,textarea,menu
+{
+    margin:0;padding:0;
+}
+html,body,
+form,fieldset,p,div,
+h1,h2,h3,h4,h5,h6{
+    -webkit-text-size-adjust:none;
+}
+body{
+    font-family:"微软雅黑",arial,sans-serif; 
+    background:#e6e6e6;
+}
+li{
+    list-style:none;
+}
+input,textarea,select{
+    outline: none; 
+    -webkit-appearance:none;
+}
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+}
+.container{
+    width: 100%;
+    height: 100%;
+} */
+
+html {
+    font-family:"Microsoft YaHei";
+}
+body {
+    background: #F9F7F8;
+    font-family:"Microsoft YaHei";
+}
+.m_tp_100{
+    margin-top: 100px;
+}
+.no_item_page{
+    color:#BFBFBF;
+}
+.hidden_item{
+    display: none;
+}
+.title_header {
+    width: 100%;
+    overflow: hidden;
+}
+
+.header_container {
+    width: 50%;
+    float: left;
+}
+
+.title_col {
+    padding: 0px;
+    -moz-box-shadow: 1px 1px 1px #EFEFEF;
+    /* 老的 Firefox */
+    box-shadow: 1px 1px 1px #EFEFEF;
+}
+.row_style{
+    position: fixed;
+    width: 100%;
+}
+.head_title {
+    background: #ffffff;
+    padding: 0px;
+    text-align: center;
+    height: 50px;
+}
+
+.head_title span {
+    color: #BFBFBF;
+    line-height: 50px;
+    font-size: 16px;
+}
+
+.head_title.select_title span {
+    color: #525252;
+}
+.item_row_container{
+    overflow: auto;
+    margin-top: 50px;
+}
+.item_row{
+    margin-top:10px;
+    height:120px;
+}
+.item_container{
+    overflow: hidden;
+    width: 100%;
+}
+.item_left{
+    float: left;
+    width: 60%;
+    height:90px;
+}
+.item_right{
+    float: left;
+    width: 40%;
+    height:90px;
+}
+.item_sale{
+    color:#A7A7A7;
+    font-size:12px;
+}
+.item_name{
+    font-size: 16px;
+}
+.item_timeup{
+    color:#A7A7A7;
+    font-size:12px;
+}
+.btn_buy{
+    margin:0 auto;
+}
+.select_img{
+    position: relative;
+    top: -12px;
+}
+p.buy.badge{
+    width: 90px;
+    margin-top: 30px;
+    float: right;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 14px;
+    background: #8FBB98;
+    font-weight: normal;
+}
