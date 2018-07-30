@@ -22,15 +22,16 @@ public class WxApiTicketCacheUtil {
     public void setApiTicketCache() {
         CacheManagerImpl cacheManagerImpl = new CacheManagerImpl();
         cacheManagerImpl.putCache("api_ticket",api_ticket,7200*1000L);
+        api_ticket = "";
     }
 
     public String getApiTicketCache(String token) {
         CacheManagerImpl cacheManagerImpl = new CacheManagerImpl();
-        api_ticket = (String)cacheManagerImpl.getCacheDataByKey("api_ticket");
-
-        if(StringUtils.isEmpty(api_ticket)){
-            getApiTicket(token);
+        if(!cacheManagerImpl.isTimeOut("api_ticket")){
+            api_ticket = (String)cacheManagerImpl.getCacheDataByKey("api_ticket");
+            return api_ticket;
         }
+        getApiTicket(token);
         return api_ticket;
     }
 

@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -116,10 +117,17 @@ public class CardsActionController {
     @ResponseBody
     public Result cardDeciphering(HttpServletRequest resquest, @RequestParam("ecode") String ecode, HttpServletResponse response) {
         //首先获取accessToken，前文已经描写了获取方法这类就不再啰嗦了
-        String decUrl = "https://api.weixin.qq.com/card/code/decrypt?access_token=TOKEN";
+        String decUrl = "https://api.weixin.qq.com/card/code/decrypt?access_token={0}";
+        String accessToken = null;
+        try {
+            accessToken = wxService.getAccessToken();
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        String url = MessageFormat.format(decUrl,accessToken);
         JSONObject json = new JSONObject();
         json.put("encrypt_code", ecode);
-        String returnJson = HttpRequestUtil.getResponse(decUrl, json.toString());
+        String returnJson = HttpRequestUtil.getResponse(url, json.toString());
         JSONObject jsonCardInfo = JSON.parseObject(returnJson);
         Integer retcode = jsonCardInfo.getInteger("errcode");
         if (retcode == 0) {
