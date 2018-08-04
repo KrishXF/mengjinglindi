@@ -85,7 +85,7 @@ public class WxSignController {
 //            list.add("1532870371997");
             list.add(api_ticket);
             list.add(card_id);
-            //list.add(noncestr);
+            list.add(noncestr);
             list.add(times + "");
             String signature = createSignBySha1(list);
             list.add(signature);

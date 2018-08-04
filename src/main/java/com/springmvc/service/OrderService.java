@@ -4,6 +4,7 @@ import com.springmvc.dto.CardDto;
 import com.springmvc.dto.OrderDetailDto;
 import com.springmvc.pojo.Card;
 import com.springmvc.pojo.OrderDetail;
+import com.springmvc.pojo.OrderGroup;
 
 import java.util.List;
 
@@ -24,4 +25,10 @@ public interface OrderService {
        OrderDetail getOrderInfoByWxCode(String wxCode)throws Exception;
 
        List<OrderDetailDto> selectByIsUsed()throws Exception;
+
+       List<String> insertOrderList(OrderDetail orderDetail) throws Exception;
+
+       List<String> insertOrderGroup(OrderGroup orderGroup) throws Exception;
+
+       int updateOrderWXCodeByorderId(List<OrderDetail> orderDetailList) throws Exception;
 }

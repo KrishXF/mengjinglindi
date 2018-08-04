@@ -15,13 +15,14 @@
     <result column="usingTime" jdbcType="TIMESTAMP" property="usingtime" />
     <result column="overTime" jdbcType="TIMESTAMP" property="overtime" />
     <result column="CardName" jdbcType="VARCHAR" property="cardname" />
-    <result column="CardType" jdbcType="TINYINT" property="cardtype" />
+    <result column="CardType" jdbcType="INTEGER" property="cardtype" />
     <result column="WXCode" jdbcType="VARCHAR" property="wxcode" />
     <result column="DetailAddress" jdbcType="VARCHAR" property="detailaddress" />
     <result column="GoodsUsingTime" jdbcType="TIMESTAMP" property="goodsusingtime" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="Phone" jdbcType="VARCHAR" property="phone" />
     <result column="GoodsRemark" jdbcType="VARCHAR" property="goodsremark" />
+    <result column="OrderGroup" jdbcType="VARCHAR" property="ordergroup" />
   </resultMap>
 
   <resultMap id="BaseResultMap1" type="com.springmvc.dto.OrderDetailDto">
@@ -38,17 +39,18 @@
     <result column="usingTime" jdbcType="TIMESTAMP" property="usingtime" />
     <result column="overTime" jdbcType="TIMESTAMP" property="overtime" />
     <result column="CardName" jdbcType="VARCHAR" property="cardname" />
-    <result column="CardType" jdbcType="TINYINT" property="cardtype" />
+    <result column="CardType" jdbcType="INTEGER" property="cardtype" />
     <result column="WXCode" jdbcType="VARCHAR" property="wxcode" />
     <result column="DetailAddress" jdbcType="VARCHAR" property="detailaddress" />
     <result column="GoodsUsingTime" jdbcType="TIMESTAMP" property="goodsusingtime" />
     <result column="Name" jdbcType="VARCHAR" property="name" />
     <result column="Phone" jdbcType="VARCHAR" property="phone" />
     <result column="GoodsRemark" jdbcType="VARCHAR" property="goodsremark" />
+    <result column="OrderGroup" jdbcType="VARCHAR" property="ordergroup" />
   </resultMap>
   <sql id="Base_Column_List">
     Id, OrderId, Adid, CardId, Count, Price, TotlePrice, OrderState, Remarks, CreateTime,
-    usingTime, overTime, CardName, CardType,WXCode,DetailAddress,GoodsUsingTime,Name,Phone,GoodsRemark
+    usingTime, overTime, CardName, CardType,WXCode,DetailAddress,GoodsUsingTime,Name,Phone,GoodsRemark,OrderGroup
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -68,13 +70,13 @@
     Count, Price, TotlePrice,
     OrderState, Remarks, CreateTime,
     usingTime, overTime, CardName,
-    CardType,WXCode,DetailAddress,GoodsUsingTime,Name,Phone,GoodsRemark)
+    CardType,WXCode,DetailAddress,GoodsUsingTime,Name,Phone,GoodsRemark,OrderGroup)
     values (#{orderid,jdbcType=VARCHAR}, #{adid,jdbcType=VARCHAR}, #{cardid,jdbcType=VARCHAR},
     #{count,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{totleprice,jdbcType=INTEGER},
     #{orderstate,jdbcType=INTEGER}, #{remarks,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},
     #{usingtime,jdbcType=TIMESTAMP}, #{overtime,jdbcType=TIMESTAMP}, #{cardname,jdbcType=VARCHAR},
-    #{cardtype,jdbcType=TINYINT},#{wxcode,jdbcType=VARCHAR}, #{detailaddress,jdbcType=VARCHAR}, #{goodsusingtime,jdbcType=TIMESTAMP},
-    #{name,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR}, #{goodsremark,jdbcType=VARCHAR})
+    #{cardtype,jdbcType=INTEGER},#{wxcode,jdbcType=VARCHAR}, #{detailaddress,jdbcType=VARCHAR}, #{goodsusingtime,jdbcType=TIMESTAMP},
+    #{name,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR}, #{goodsremark,jdbcType=VARCHAR}, #{ordergroup,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.springmvc.pojo.OrderDetail">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -139,6 +141,9 @@
       <if test="goodsremark != null">
         GoodsRemark,
       </if>
+      <if test="ordergroup != null">
+        OrderGroup,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderid != null">
@@ -178,7 +183,7 @@
         #{cardname,jdbcType=VARCHAR},
       </if>
       <if test="cardtype != null">
-        #{cardtype,jdbcType=TINYINT},
+        #{cardtype,jdbcType=INTEGER},
       </if>
       <if test="wxcode != null">
         #{wxcode,jdbcType=VARCHAR},
@@ -197,6 +202,9 @@
       </if>
       <if test="goodsremark != null">
         #{goodsremark,jdbcType=VARCHAR},
+      </if>
+      <if test="ordergroup != null">
+        #{ordergroup,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -240,7 +248,7 @@
         CardName = #{cardname,jdbcType=VARCHAR},
       </if>
       <if test="cardtype != null">
-        CardType = #{cardtype,jdbcType=TINYINT},
+        CardType = #{cardtype,jdbcType=INTEGER},
       </if>
       <if test="wxcode != null">
         WXCode= #{wxcode,jdbcType=VARCHAR},
@@ -257,8 +265,8 @@
       <if test="phone != null">
         Phone= #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="goodsremark != null">
-        GoodsRemark= #{goodsremark,jdbcType=VARCHAR},
+      <if test="ordergroup != null">
+        OrderGroup= #{ordergroup,jdbcType=VARCHAR},
       </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
@@ -277,13 +285,14 @@
       usingTime = #{usingtime,jdbcType=TIMESTAMP},
       overTime = #{overtime,jdbcType=TIMESTAMP},
       CardName = #{cardname,jdbcType=VARCHAR},
-      CardType = #{cardtype,jdbcType=TINYINT},
+      CardType = #{cardtype,jdbcType=INTEGER},
       WXCode= #{wxcode,jdbcType=VARCHAR},
       DetailAddress= #{detailaddress,jdbcType=VARCHAR},
       GoodsUsingTime= #{goodsusingtime,jdbcType=TIMESTAMP},
       Name= #{name,jdbcType=VARCHAR},
       Phone= #{phone,jdbcType=VARCHAR},
-      GoodsRemark= #{goodsremark,jdbcType=VARCHAR}
+      GoodsRemark= #{goodsremark,jdbcType=VARCHAR},
+      OrderGroup= #{ordergroup,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -321,15 +330,35 @@
     <foreach collection="list" item="item" index="index" open="" close="" separator=";">
       update orderdetail
       <set>
-        DetailAddress=${item.detailaddress},
-        GoodsUsingTime=${item.goodsusingtime},
-        Name=${item.name},
-        Phone=${item.phone},
-        GoodsRemark=${item.goodsremark},
+        DetailAddress=#{item.detailaddress},
+        GoodsUsingTime=#{item.goodsusingtime},
+        Name=#{item.name},
+        Phone=#{item.phone},
+        GoodsRemark=#{item.goodsremark},
       </set>
-      where WXCode = ${item.wxcode}
+      where WXCode = #{item.wxcode}
     </foreach>
   </update>
+
+  <insert id="InsertOrderGoodsList" useGeneratedKeys="true" parameterType="java.util.List">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into orderdetail (OrderId, Adid, CardId,
+    Count, Price, TotlePrice,
+    OrderState, Remarks, CreateTime,
+    usingTime, overTime, CardName,
+    CardType,WXCode,DetailAddress,GoodsUsingTime,Name,Phone,GoodsRemark,OrderGroup)
+    values
+    <foreach collection="list" item="item" index="index" open="" close="" separator=",">
+    (#{item.orderid}, #{item.adid}, #{item.cardid},
+    #{item.count}, #{item.price}, #{item.totleprice},
+    #{item.orderstate}, #{item.remarks}, #{item.createtime},
+    #{item.usingtime}, #{item.overtime}, #{item.cardname},
+    #{item.cardtype},#{item.wxcode}, #{item.detailaddress}, #{item.goodsusingtime},
+    #{item.name},#{item.phone}, #{item.goodsremark},#{item.ordergroup})
+    </foreach>
+  </insert>
 
   <update id="UpdateOrderGoods" parameterType="com.springmvc.pojo.OrderDetail">
     update orderdetail
@@ -360,5 +389,25 @@
     where OrderState=3
     order by GoodsUsingTime desc
   </select>
+
+  <!--<update id="updateOrderWXCodeByorderId"  parameterType="java.util.List">-->
+    <!--<foreach collection="list" item="item" index="index" open="" close="" separator=";">-->
+      <!--update orderdetail-->
+      <!--<set>-->
+        <!--WXCode = #{item.wxcode}-->
+      <!--</set>-->
+      <!--where OrderId = #{item.orderid}-->
+    <!--</foreach>-->
+  <!--</update>-->
+
+  <update id="updateOrderWXCodeByorderId"  parameterType="java.util.List">
+    <foreach collection="list" item="item"  open="" close="" separator=";">
+      update orderdetail
+      <set>
+        WXCode = #{item.wxcode}
+      </set>
+      where OrderId = #{item.orderid}
+    </foreach>
+  </update>
 
 </mapper>

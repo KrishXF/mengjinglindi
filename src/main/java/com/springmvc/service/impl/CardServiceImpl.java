@@ -26,7 +26,7 @@ public class CardServiceImpl  implements CardService {
         Card card = new Card();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         card.setEnddate(new Date());
-        List<Card>  cardlist=cardMapper.selectCarList(card);
+        List<Card>  cardlist=cardMapper.selectCardList(card);
         List<CardDto> cardDtoList=new ArrayList<CardDto>();
         for (Card item :cardlist
                 ) {
@@ -75,5 +75,26 @@ public class CardServiceImpl  implements CardService {
         cardDto.setCardstate(card.getCardstate());
         cardDto.setDoublePrice((double)card.getPrice()/100);
         return cardDto;
+    }
+
+    public  List<Card> getCardInfoByCardIdList(List<String> cardIdList) throws Exception{
+        Card card = new Card();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        card.setEnddate(new Date());
+        List<Card>  cardlist=cardMapper.selectCardListByAdidList(cardIdList);
+//        List<CardDto> cardDtoList=new ArrayList<CardDto>();
+//        for (Card item :cardlist
+//                ) {
+//            CardDto cardDto=new CardDto();
+//            cardDto.setEnddatestring(df.format(item.getEnddate()));
+//            cardDto.setId(item.getId());
+//            cardDto.setCardid(item.getCardid());
+//            cardDto.setName(item.getName());
+//            cardDto.setPrice(item.getPrice());
+//            cardDto.setType(item.getType());
+//            cardDto.setInventory(item.getInventory());
+//            cardDtoList.add(cardDto);
+//        }
+        return cardlist;
     }
 }

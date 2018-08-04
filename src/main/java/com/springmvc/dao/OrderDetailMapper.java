@@ -31,4 +31,8 @@ public interface OrderDetailMapper {
     OrderDetail getOrderInfoByWxCode(String wxcode);
 
     List<OrderDetailDto> selectByIsUsed();
+
+    int InsertOrderGoodsList(List<OrderDetail> orderDetailList);
+
+    int updateOrderWXCodeByorderId(List<OrderDetail> orderDetailList);
 }

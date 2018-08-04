@@ -2,21 +2,27 @@ package com.springmvc.controller;
 
 import com.springmvc.common.CodeMsg;
 import com.springmvc.common.Result;
+import com.springmvc.dto.CardDto;
 import com.springmvc.dto.OrderDetailDto;
 import com.springmvc.pojo.Card;
 import com.springmvc.pojo.OrderDetail;
+import com.springmvc.pojo.OrderGroup;
 import com.springmvc.service.OrderService;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,6 +33,7 @@ public class OrderController {
     @Autowired
     OrderService orderservice;
 
+    //根据用户获取订单列表--wsx
     @RequestMapping("/getOderList.do")
     @ResponseBody
     public Result getOrderList(HttpServletRequest request, HttpServletResponse response){
@@ -39,6 +46,7 @@ public class OrderController {
         }
     }
 
+    //新增订单（点击购买，新增订单，未付款）--wsx
     @RequestMapping("/insertOrder.do")
     @ResponseBody
     public Result insertOrder(OrderDetail orderDetail, HttpServletRequest request, HttpServletResponse response){
@@ -55,6 +63,69 @@ public class OrderController {
         }
     }
 
+    //批量插入卡券
+    @RequestMapping("/insertOrderList.do")
+    @ResponseBody
+    public Result insertOrderList(OrderDetail orderDetail, HttpServletRequest request, HttpServletResponse response){
+        try {
+            List<String> resultdata=orderservice.insertOrderList(orderDetail);
+            if (resultdata!=null){
+                return Result.success(resultdata);
+            }else {
+                return Result.error(CodeMsg.Failed);
+            }
+        }catch (Exception ex){
+            logger.error(ex.getMessage());
+            return  Result.error(CodeMsg.Failed,ex.getMessage());
+        }
+    }
+
+    @RequestMapping("/insertOrderGroup.do")
+    @ResponseBody
+    public Result insertOrderGroup(OrderGroup orderGroup, HttpServletRequest request, HttpServletResponse response){
+        try {
+            List<String> resultdata=orderservice.insertOrderGroup(orderGroup);
+            if (resultdata!=null){
+                return Result.success(resultdata);
+            }else {
+                return Result.error(CodeMsg.Failed);
+            }
+        }catch (Exception ex){
+            logger.error(ex.getMessage());
+            return  Result.error(CodeMsg.Failed,ex.getMessage());
+        }
+    }
+
+    //根据为订单批量添加WSCode
+    @RequestMapping("/updateOrderWXCodeByorderId.do")
+    @ResponseBody
+    public Result updateOrderWXCodeByorderId(@RequestParam("postdata") String postdata, HttpServletRequest request, HttpServletResponse response){
+        try {
+            org.json.JSONObject json = new org.json.JSONObject(postdata);
+            String orderList = json.getString("orderList");
+//            org.json.JSONObject json1 = new org.json.JSONObject(age);
+            JSONArray jsonArray = JSONArray.fromObject(orderList);
+            List<OrderDetail> orderDetailList=new ArrayList<>();
+            for ( int i=0;i<jsonArray.size();i++){
+                JSONObject job = jsonArray.getJSONObject(i);
+                OrderDetail orderdetail=new OrderDetail();
+                orderdetail.setOrderid(job.get("orderid").toString());
+                orderdetail.setWxcode(job.get("wscode").toString());
+                orderDetailList.add(orderdetail);
+            }
+            int result=orderservice.updateOrderWXCodeByorderId(orderDetailList);
+            if (result==jsonArray.size()){
+                return Result.success();
+            }else{
+                return Result.error(CodeMsg.Failed);
+            }
+        }catch (Exception ex){
+            logger.error(ex.getMessage());
+            return  Result.error(CodeMsg.Failed,ex.getMessage());
+        }
+    }
+
+    //更新订单
     @RequestMapping("/updateOrder.do")
     @ResponseBody
     public Result updateOrder(HttpServletRequest request, HttpServletResponse response){

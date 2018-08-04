@@ -28,9 +28,7 @@ import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/wexinCard")
@@ -115,7 +113,7 @@ public class CardsActionController {
     //卡券解密--wrj
     @RequestMapping("/cardDeciphering")
     @ResponseBody
-    public Result cardDeciphering(HttpServletRequest resquest, @RequestParam("ecode") String ecode, HttpServletResponse response) {
+    public Result cardDeciphering(HttpServletRequest resquest, @RequestParam("ecodelist[]") List<String> ecodeList, HttpServletResponse response) {
         //首先获取accessToken，前文已经描写了获取方法这类就不再啰嗦了
         String decUrl = "https://api.weixin.qq.com/card/code/decrypt?access_token={0}";
         String accessToken = null;
@@ -124,40 +122,41 @@ public class CardsActionController {
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
-        String url = MessageFormat.format(decUrl,accessToken);
-        JSONObject json = new JSONObject();
-        json.put("encrypt_code", ecode);
-        String returnJson = HttpRequestUtil.getResponse(url, json.toString());
-        JSONObject jsonCardInfo = JSON.parseObject(returnJson);
-        Integer retcode = jsonCardInfo.getInteger("errcode");
-        if (retcode == 0) {
-            String code = jsonCardInfo.getString("code");
-            return Result.success(code);
-        } else {
-            return Result.error(CodeMsg.Failed);
+        String url = MessageFormat.format(decUrl, accessToken);
+        Map<String, String> successMap = new HashMap<String, String>();
+        Map<String, String> failMap = new HashMap<String, String>();
+        //List<String> ecodeList = java.util.Arrays.asList(ecodeStr.split(","));
+        for (String ecode : ecodeList) {
+            JSONObject json = new JSONObject();
+            json.put("encrypt_code", ecode);
+            String returnJson = HttpRequestUtil.getResponse(url, json.toString());
+            JSONObject jsonCardInfo = JSON.parseObject(returnJson);
+            Integer retcode = jsonCardInfo.getInteger("errcode");
+            if (retcode == 0) {
+                String code = jsonCardInfo.getString("code");
+                successMap.put(ecode,code);
+            } else {
+                failMap.put(ecode,ecode);
+            }
         }
+        Map<String, Object> retMap = new HashMap<String, Object>();
+        retMap.put("success",successMap);
+        retMap.put("error",failMap);
+        System.out.println(retMap);
+        return Result.success(retMap);
     }
-
 
     //卡券核销
     @RequestMapping("/createComsume.do")
     @ResponseBody
-    public Result consumeCard(HttpServletRequest resquest, @RequestParam("code") String code, HttpServletResponse response) {
-
+    public Result consumeCard(HttpServletRequest resquest, @RequestParam("codelist[]") List<String> codeList, HttpServletResponse response) {
+        List<String> successList = new ArrayList<String>();
+        List<String> failList = new ArrayList<String>();
         //首先获取accessToken，前文已经描写了获取方法这类就不再啰嗦了
         try {
             String accessToken = wxService.getAccessToken();
-            //解密code
-//            String decUrl = "https://api.weixin.qq.com/card/code/decrypt?access_token=TOKEN";
-//            JSONObject json = new JSONObject();
-//            json.put("encrypt_code", ecode);
-//            String returnJson = HttpRequestUtil.getResponse(decUrl, json.toString());
-//            JSONObject jsonCardInfo = JSON.parseObject(returnJson);
-//            Integer retcode = jsonCardInfo.getInteger("errcode");
-//            if (retcode == 0) {
-               //String code = jsonCardInfo.getString("code");
-                //这串url是查询code的接口，在看文档的时候，强烈推荐先查询，所以就先试了下
-                String url = "https://api.weixin.qq.com/card/code/get?access_token=" + accessToken;
+            String url = "https://api.weixin.qq.com/card/code/get?access_token=" + accessToken;
+            for (String code : codeList) {
                 JSONObject json = new JSONObject();
                 json.put("code", code);
                 json.put("check_consume", true);
@@ -174,16 +173,22 @@ public class CardsActionController {
                     retcode = jsonCardInfo.getInteger("errcode");
                     if (retcode == 0) {
                         JSONObject cardJson = jsonCardInfo.getJSONObject("card");
-                        String card_id = cardJson.getString("card_id");
-                        return Result.success(card_id);
+                        successList.add(code);
+                    }else{
+                        failList.add(code);
                     }
+                }else{
+                    failList.add(code);
                 }
-//            }
+            }
         } catch (WxErrorException e) {
             return Result.error(CodeMsg.Failed);
         }
-
-        return Result.error(CodeMsg.Failed);
+        JSONObject resulstJson = new JSONObject();
+        resulstJson.put("success",successList);
+        resulstJson.put("error",failList);
+        System.out.println(resulstJson);
+        return Result.success(resulstJson);
     }
 
     //本地CardBean参数组装类

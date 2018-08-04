@@ -18,7 +18,9 @@ public interface CardMapper {
 
     int updateByPrimaryKey(Card record);
 
-    List<Card> selectCarList(Card record);
+    List<Card> selectCardList(Card record);
 
-    Card selectCarByCardId(Card record);
+    Card selectCardByCardId(Card record);
+
+   List<Card> selectCardListByAdidList(List<String> cardIdList);
 }

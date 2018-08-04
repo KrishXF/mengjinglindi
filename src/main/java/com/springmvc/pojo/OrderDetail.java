@@ -29,9 +29,19 @@ public class OrderDetail {
 
     private String cardname;
 
-    private Byte cardtype;
+    private Integer cardtype;
 
     private String detailaddress;
+
+    public String getOrdergroup() {
+        return ordergroup;
+    }
+
+    public void setOrdergroup(String ordergroup) {
+        this.ordergroup = ordergroup;
+    }
+
+    private String ordergroup;
 
     public Date getGoodsusingtime() {
         return goodsusingtime;
@@ -198,11 +208,11 @@ public class OrderDetail {
         this.cardname = cardname == null ? null : cardname.trim();
     }
 
-    public Byte getCardtype() {
+    public Integer getCardtype() {
         return cardtype;
     }
 
-    public void setCardtype(Byte cardtype) {
+    public void setCardtype(Integer cardtype) {
         this.cardtype = cardtype;
     }
 }
