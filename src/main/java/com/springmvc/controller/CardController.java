@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,6 +28,7 @@ public class CardController {
     @Autowired
     CardService cardservice;
 
+    //获取卡券列表-wsx
     @RequestMapping("/getCardList.do")
     @ResponseBody
     public Result getCardList(HttpServletRequest request, HttpServletResponse response){
@@ -37,6 +39,8 @@ public class CardController {
             return Result.error(CodeMsg.Failed,ex.getMessage());
         }
     }
+
+    //获取卡券详情--wsx
     @RequestMapping("/getCardInfo.do")
     @ResponseBody
     public Result getCardInfo(HttpServletRequest request, HttpServletResponse response){
@@ -50,7 +54,20 @@ public class CardController {
         }
     }
 
+    //获取卡券列表获取卡券详情
+    @RequestMapping("/getCardInfoByCardIdList.do")
+    @ResponseBody
+    public Result getCardInfoByCardIdList(@RequestParam("cardIdList[]") List<String> cardIdList, HttpServletRequest request, HttpServletResponse response){
+        try {
+            List<Card> cardDto=cardservice.getCardInfoByCardIdList(cardIdList);
+            return Result.success(cardDto);
+        }catch (Exception ex){
+            logger.error(ex.getMessage());
+            return  Result.error(CodeMsg.Failed,ex.getMessage());
+        }
+    }
 
+    //插入卡券--wsx
     @RequestMapping("/insertCard.do")
     @ResponseBody
     public Result insertCard(Card card,HttpServletRequest request, HttpServletResponse response){
@@ -67,6 +84,7 @@ public class CardController {
         }
     }
 
+    //跳转页面--wsx
     @RequestMapping("/cardRedirect.do")
     public void insertCard(HttpServletRequest request, HttpServletResponse response) {
         try{
@@ -75,7 +93,6 @@ public class CardController {
          }catch (Exception ex){
             logger.error(ex.getMessage());
         }
-
     }
 
 

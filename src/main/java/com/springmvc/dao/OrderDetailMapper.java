@@ -35,4 +35,6 @@ public interface OrderDetailMapper {
     int InsertOrderGoodsList(List<OrderDetail> orderDetailList);
 
     int updateOrderWXCodeByorderId(List<OrderDetail> orderDetailList);
+
+    int updateOrderByOrderGroupId(OrderDetail record);
 }

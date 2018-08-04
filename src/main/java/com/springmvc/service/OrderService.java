@@ -1,5 +1,6 @@
 package com.springmvc.service;
 
+import com.springmvc.dao.OrderGroupMapper;
 import com.springmvc.dto.CardDto;
 import com.springmvc.dto.OrderDetailDto;
 import com.springmvc.pojo.Card;
@@ -11,7 +12,7 @@ import java.util.List;
 public interface OrderService {
 
        //获取我的订单列表
-       List<OrderDetail> getOrderList(String Adid) throws Exception;
+       List<OrderGroup> getOrderList(String Adid) throws Exception;
 
        //新增订单
        String insertOrder(OrderDetail orderDetail)throws Exception;
@@ -31,4 +32,6 @@ public interface OrderService {
        List<String> insertOrderGroup(OrderGroup orderGroup) throws Exception;
 
        int updateOrderWXCodeByorderId(List<OrderDetail> orderDetailList) throws Exception;
+
+       int updateOrderByOrderGroupId(String orderGroupId)throws Exception ;
 }

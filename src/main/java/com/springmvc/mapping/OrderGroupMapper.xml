@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.dao.OrderGroupMapper">
+  <resultMap id="BaseResultMap" type="com.springmvc.pojo.OrderGroup">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="OrderGroupId" jdbcType="VARCHAR" property="ordergroupid" />
+    <result column="Adid" jdbcType="VARCHAR" property="adid" />
+    <result column="CardId" jdbcType="VARCHAR" property="cardid" />
+    <result column="Count" jdbcType="INTEGER" property="count" />
+    <result column="Price" jdbcType="INTEGER" property="price" />
+    <result column="TotlePrice" jdbcType="INTEGER" property="totleprice" />
+    <result column="OrderState" jdbcType="INTEGER" property="orderstate" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="UsingTime" jdbcType="TIMESTAMP" property="usingtime" />
+    <result column="OverTime" jdbcType="TIMESTAMP" property="overtime" />
+    <result column="CardName" jdbcType="VARCHAR" property="cardname" />
+    <result column="CardType" jdbcType="INTEGER" property="cardtype" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, OrderGroupId, Adid, CardId, Count, Price, TotlePrice, OrderState, CreateTime,
+    UsingTime, OverTime, CardName, CardType
+  </sql>
+  <insert id="insert" parameterType="com.springmvc.pojo.OrderGroup"  useGeneratedKeys="true" keyProperty="id">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ordergroup (OrderGroupId, Adid, CardId,
+    Count, Price, TotlePrice,
+    OrderState, CreateTime,
+    usingTime, overTime, CardName,
+    CardType)
+    values (#{ordergroupid,jdbcType=VARCHAR}, #{adid,jdbcType=VARCHAR}, #{cardid,jdbcType=VARCHAR},
+    #{count,jdbcType=INTEGER}, #{price,jdbcType=INTEGER}, #{totleprice,jdbcType=INTEGER},
+    #{orderstate,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP},
+    #{usingtime,jdbcType=TIMESTAMP}, #{overtime,jdbcType=TIMESTAMP}, #{cardname,jdbcType=VARCHAR},
+    #{cardtype,jdbcType=INTEGER})
+  </insert>
+
+  <update id="updatestatus" parameterType="com.springmvc.pojo.OrderGroup">
+    update ordergroup
+    <set>
+      <if test="wxcode != null">
+        OrderState = #{orderstate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where OrderGroupId = #{ordergroupid,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByAdid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ordergroup
+    where Adid = #{adid,jdbcType=VARCHAR}
+    and   OrderState =1
+    order by CreateTime desc
+  </select>
+
+  <update id="updateOrderByOrderGroupId" parameterType="com.springmvc.pojo.OrderGroup">
+    update ordergroup
+    <set>
+        OrderState = 3
+    </set>
+    where OrderGroupId = #{ordergroupid,jdbcType=VARCHAR}
+  </update>
+</mapper>

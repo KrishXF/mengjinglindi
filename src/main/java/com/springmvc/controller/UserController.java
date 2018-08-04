@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -107,13 +108,8 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/asdf")
     public Result asdf(HttpServletRequest request, HttpServletResponse response) {
-        String timestrap = String.valueOf(Calendar.getInstance().getTimeInMillis());
-
-        String[] s = new String[]{"adad", "bsbs", "123321", "123asd"};
-        List<String> list = new ArrayList<String>(s.length);
-        for (int i = 0; i < s.length; i++) {
-            list.add(s[i]);
-        }
-        return null;
+        String aaa = request.getParameter("aaa");
+        logger.info(aaa);
+        return Result.success();
     }
 }

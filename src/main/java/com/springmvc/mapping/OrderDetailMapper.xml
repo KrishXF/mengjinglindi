@@ -316,6 +316,16 @@
   </set>
   where Id = #{id,jdbcType=INTEGER}
 </update>
+
+  <update id="updateOrderByOrderGroupId" parameterType="com.springmvc.pojo.OrderDetail">
+    update orderdetail
+    <set>
+        OrderState = 3,
+        usingTime = #{usingtime,jdbcType=TIMESTAMP}
+    </set>
+    where OrderGroup = #{ordergroup,jdbcType=VARCHAR}
+  </update>
+
   <update id="updateOrderWXCode" parameterType="com.springmvc.pojo.OrderDetail">
     update orderdetail
     <set>
@@ -409,5 +419,4 @@
       where OrderId = #{item.orderid}
     </foreach>
   </update>
-
 </mapper>

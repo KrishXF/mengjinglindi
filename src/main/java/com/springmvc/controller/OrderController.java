@@ -105,7 +105,7 @@ public class OrderController {
             String orderList = json.getString("orderList");
 //            org.json.JSONObject json1 = new org.json.JSONObject(age);
             JSONArray jsonArray = JSONArray.fromObject(orderList);
-            List<OrderDetail> orderDetailList=new ArrayList<>();
+            List<OrderDetail> orderDetailList=new ArrayList<OrderDetail>();
             for ( int i=0;i<jsonArray.size();i++){
                 JSONObject job = jsonArray.getJSONObject(i);
                 OrderDetail orderdetail=new OrderDetail();
@@ -114,7 +114,7 @@ public class OrderController {
                 orderDetailList.add(orderdetail);
             }
             int result=orderservice.updateOrderWXCodeByorderId(orderDetailList);
-            if (result==jsonArray.size()){
+            if (result==1){
                 return Result.success();
             }else{
                 return Result.error(CodeMsg.Failed);
@@ -124,6 +124,26 @@ public class OrderController {
             return  Result.error(CodeMsg.Failed,ex.getMessage());
         }
     }
+
+    //批量更新订单（领取到微信卡券后调用此接口）
+    @RequestMapping("/updateOrderByOrderGroupId.do")
+    @ResponseBody
+    public Result updateOrderByOrderGroupId(HttpServletRequest request, HttpServletResponse response){
+        try {
+
+            String orderGroupId=URLDecoder.decode(request.getParameter("OrderGroupId"), "utf-8") ;
+            int resultdata=orderservice.updateOrderByOrderGroupId(orderGroupId);
+            if ( resultdata==1 ){
+                return Result.success();
+            }else {
+                return Result.error(CodeMsg.Failed);
+            }
+        }catch (Exception ex){
+            logger.error(ex.getMessage());
+            return  Result.error(CodeMsg.Failed,ex.getMessage());
+        }
+    }
+
 
     //更新订单
     @RequestMapping("/updateOrder.do")

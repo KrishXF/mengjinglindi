@@ -33,8 +33,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderGroupMapper orderGroupMapper;
 
-    public List<OrderDetail> getOrderList(String Adid) throws Exception{
-        List<OrderDetail> orderDetailsList=orderMapper.selectByAdid(Adid);
+    public List<OrderGroup> getOrderList(String Adid) throws Exception{
+        List<OrderGroup> orderDetailsList=orderGroupMapper.selectByAdid(Adid);
         return orderDetailsList;
 
     }
@@ -66,6 +66,22 @@ public class OrderServiceImpl implements OrderService {
             return UUid  ;
         }
     }
+
+    public int updateOrderByOrderGroupId(String orderGroupId)throws Exception {
+
+        OrderGroup orderGroup=new OrderGroup();
+        orderGroup.setOrdergroupid(orderGroupId);
+        orderGroup.setUsingtime(new Date());
+        int result= orderGroupMapper.updateOrderByOrderGroupId(orderGroup);
+
+        OrderDetail orderDetail=new OrderDetail();
+        orderDetail.setOrdergroup(orderGroupId);
+        orderDetail.setUsingtime(new Date());
+        orderMapper.updateOrderByOrderGroupId(orderDetail);
+
+        return result;
+
+    };
 
     //批量插入卡券组（暂不启用）
     public List<String> insertOrderGroup(OrderGroup orderGroup) throws Exception {
@@ -142,8 +158,8 @@ public class OrderServiceImpl implements OrderService {
                return null;
         }
 
-        List<String> listUuid=new ArrayList<>();
-        List<OrderDetail> orderDetailList=new ArrayList<>();
+        List<String> listUuid=new ArrayList<String>();
+        List<OrderDetail> orderDetailList=new ArrayList<OrderDetail>();
         for (int i=0;i<orderDetail.getCount();i++){
             String UUid=UUID.randomUUID().toString().replaceAll("-", "");
             OrderDetail orderDetailfor=new OrderDetail();
@@ -195,9 +211,9 @@ public class OrderServiceImpl implements OrderService {
 
     }
     public int UpdateOrderGoodsList(String str,OrderDetail orderDetail)throws Exception{
-        List<OrderDetail> orderDetailList=new ArrayList<>();
+        List<OrderDetail> orderDetailList=new ArrayList<OrderDetail>();
         orderDetail.setGoodsusingtime(new Date());
-        orderDetail.setOrderstate(2);
+        orderDetail.setOrderstate(4);
         int result=0;
         String[]  stringList= str.split(",");
         for (String s:stringList

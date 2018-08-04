@@ -7,7 +7,6 @@ import com.springmvc.service.ProvincialUrbanAreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,8 +33,8 @@ public class ProvincialUrbanAreaController {
     @RequestMapping(value = "/city.do")
     @ResponseBody
     public Result cityByProvinceId(HttpServletRequest request, HttpServletResponse response) {
-//        int provinceId = Integer.parseInt(request.getParameter("provinceId"));
-        int provinceId = 370000;
+        int provinceId = Integer.parseInt(request.getParameter("provinceId"));
+//        int provinceId = 370000;
         List<City> cityList = provincialUrbanAreaService.cityByProvinceId(provinceId);
         return Result.success(cityList);
     }
@@ -43,8 +42,8 @@ public class ProvincialUrbanAreaController {
     @RequestMapping(value = "/area.do")
     @ResponseBody
     public Result areaByCityId(HttpServletRequest request, HttpServletResponse response) {
-//        int cityId = Integer.parseInt(request.getParameter("cityId"));
-        int cityId = 120100;
+        int cityId = Integer.parseInt(request.getParameter("cityId"));
+//        int cityId = 120100;
         List<Area> areaList = provincialUrbanAreaService.areaByCityId(cityId);
         return Result.success(areaList);
     }
