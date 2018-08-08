@@ -22,7 +22,6 @@ public class WxApiTicketCacheUtil {
     public void setApiTicketCache() {
         CacheManagerImpl cacheManagerImpl = new CacheManagerImpl();
         cacheManagerImpl.putCache("api_ticket",api_ticket,7200*1000L);
-        api_ticket = "";
     }
 
     public String getApiTicketCache(String token) {
