@@ -56,9 +56,10 @@ public class CardsActionController {
             //获取token方法
             String accessToken = wxService.getAccessToken();
             String logoFilePath = "";
-            List<String> filePathList = new ArrayList<String>();
             List<String> filePathForWxList = new ArrayList<String>();
+            List<String> filePathList = new ArrayList<String>();
             logoFilePath = FileUploadUtil.uploadFile(resquest, uploadFile);
+            filePathList.add(logoFilePath);
             String baseFilePath = FileUploadUtil.uploadFile(resquest, basefile);
             //调用微信方法上传logo
             CardsCreateService cardsCre = new CardsCreateService();
@@ -69,7 +70,6 @@ public class CardsActionController {
             if(!detail1.isEmpty()){
                 detail1FilePath  = FileUploadUtil.uploadFile(resquest, detail1);
                 String detail1FilePathWx = JSON.parseObject(cardsCre.uploadLogo(detail1FilePath, accessToken)).getString(URL);
-                filePathList.add(detail1FilePath);
                 filePathForWxList.add(detail1FilePathWx);
             }
 
@@ -77,16 +77,13 @@ public class CardsActionController {
             if(!detail2.isEmpty()){
                 detail2FilePath  = FileUploadUtil.uploadFile(resquest, detail2);
                 String detail2FilePathWx = JSON.parseObject(cardsCre.uploadLogo(detail2FilePath, accessToken)).getString(URL);
-                filePathList.add(detail2FilePath);
                 filePathForWxList.add(detail2FilePathWx);
             }
 
             String detail3FilePath = "";
             if(!detail3.isEmpty()){
                 detail3FilePath  = FileUploadUtil.uploadFile(resquest, detail3);
-                String detail3FilePathWx = JSON.parseObject(cardsCre.uploadLogo(detail3FilePath, accessToken)).getString(URL);
                 filePathList.add(detail3FilePath);
-                filePathForWxList.add(detail3FilePathWx);
             }
 
             if (!StringUtils.isEmpty(logoUrl)) {
@@ -211,6 +208,7 @@ public class CardsActionController {
         }
         card.setTimestrap(new Date());
         card.setTimeremarks(jsonCardInfo.getString("TimeRemarks"));
+        card.setType(jsonCardInfo.getInteger("Type"));
         return card;
     }
 

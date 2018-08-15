@@ -67,7 +67,10 @@ public class WxCardGroupon extends WxCard
         for (int i = 0; i < imageArray.size(); i++) {
             JSONObject imageText = (JSONObject)imageArray.get(i);
             String text = imageText.getString("text");
-            String textUrl = filePathList.get(i);
+            String textUrl = "";
+            if(i<=(filePathList.size()-1)){
+                textUrl = filePathList.get(i);
+            }
             advancedInfo.setTextImageList(textUrl,text);
         }
         System.out.println(advancedInfo.toJsonString());

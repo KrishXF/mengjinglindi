@@ -6,9 +6,9 @@
         "      \"GROUPON\": {" +
         "          \"base_info\": {" +
         //卡券标题
-        "              \"brand_name\": \"梦境林地\"," +
+        "              \"brand_name\": \"慈优礼\"," +
         //券类型，不用改动
-        "              \"code_type\": \"CODE_TYPE_TEXT\"," +
+        "              \"code_type\": \"CODE_TYPE_NONE\"," +
         //卡券名称
         "              \"title\": \"阳光玫瑰葡萄\"," +
         //颜色
@@ -24,7 +24,7 @@
         //有效期类型
         "                  \"type\": \"DATE_TYPE_FIX_TIME_RANGE\"," +
         //开始时间，时间戳，秒数
-        "                  \"begin_timestamp\": 1532620800," +
+        "                  \"begin_timestamp\": 1533052800," +
         //结束时间，时间戳，秒数
         "                  \"end_timestamp\": 1535644800" +
         "              }," +
@@ -95,11 +95,7 @@
         "\"deal_detail\": \"价格优惠\""  +
         "  }" +
         "}";
-    var baseInfo = document.getElementById("baseInfo").value ="";
-    var localInfo = document.getElementById("localJson").value = "{\"Introduc\":\"生产产地：慈溪市新浦镇\n" +
-        "农场名称：慈溪市新浦一帆果蔬农场\n" +
-        "产品特点：阳光玫瑰葡萄本名Shine Muscat，也会被音译为夏音玛斯卡特葡萄。属欧美杂交种，由安芸津21号（Steuben与Muscat of Alexandria的后代）与白南杂交育成。阳光玫瑰葡萄名字里的前缀“Shine”得名于它的果实成熟后完全没有果粉，光滑闪亮，呈现出诱人的光泽。而普通葡萄成熟后外表皮会有果粉，那些蜡制会让果实看起来灰蒙蒙的。阳光玫瑰葡萄的糖度普遍能到达20度，且几乎没有酸质，吃进嘴里满满的都是甜感。在日本有一种流行的吃法：把它丢进速冻里，拿出来后高度甜味配合原本就细腻的果肉会让它吃起来仿佛水果冰沙。\n" +
-        "农场信息：成立于2006年6月，占地1200亩，历经12年时间发展，先后通过国家无公害农产品基地、GAP以及HACCP认证，同时被认定为浙江省示范性家庭农场。近年来，与上海交大技术合作，引进种植的阳光玫瑰葡萄（目前慈溪最大的阳光玫瑰种植基地），严格按照无公害栽培技术，果肉细腻，甜度达到22以上，口感风味中带有独特的果香。\n\",\"Name\":\"阳光玫瑰葡萄\",\"Price\":100,\"Type\":1,\"Inventory\":500,\"Remarks\":\"Remarks\",\"StartDate\":\"2018-8-01\",\"EndDate\":\"2019-8-31\",\"TimeRemarks\":\"周一到周日全天可用\"}"
+    var localInfo = document.getElementById("localJson").value = "{\"Introduc\":\"\",\"Name\":\"阳光玫瑰葡萄\",\"Price\":100,\"Type\":1,\"Inventory\":500,\"Remarks\":\"Remarks\",\"StartDate\":\"2018-8-01\",\"EndDate\":\"2018-8-31\",\"TimeRemarks\":\"周一到周日全天可用\",\"Type\":\"1\"}"
 })();
 
 //图片上传
@@ -108,10 +104,10 @@ var xhr;
 function UpladFile() {
     var f1 = document.getElementById("file").files[0]; // js 获取文件对象
     var b1 = document.getElementById("basefile").files[0]; // js 获取文件对象
-    var a1 = document.getElementById("detail1").files[0]; // js 获取文件对象
-    var a2 = document.getElementById("detail2").files[0]; // js 获取文件对象
-    var a3 = document.getElementById("detail3").files[0]; // js 获取文件对象
-    var url =  "http://demo.steam-steam.cn" + "/wexinCard/createCard.do"; // 接收上传文件的后台地址
+    var a1 = null!=document.getElementById("detail1").files[0]?document.getElementById("detail1").files[0]:""; // js 获取文件对象
+    var a2 = null!=document.getElementById("detail2").files[0]?document.getElementById("detail2").files[0]:""; // js 获取文件对象
+    var a3 = null!=document.getElementById("detail3").files[0]?document.getElementById("detail3").files[0]:""; // js 获取文件对象
+    var url =  "http://localhost:8080" + "/wexinCard/createCard.do"; // 接收上传文件的后台地址
 
     var form = new FormData(); // FormData 对象
     form.append("uploadFile", f1); // 文件对象
@@ -120,7 +116,7 @@ function UpladFile() {
     form.append("detail2", a2); // 文件对象
     form.append("detail3", a3); // 文件对象
     form.append("cardInfo", document.getElementById("cardJson").value); // 微信卡券对象
-    form.append("baseInfo", document.getElementById("baseInfo").value); // 微信卡券对象
+    form.append("baseInfo", ""); // 微信卡券对象
     form.append("localJson", document.getElementById("localJson").value); // 本地卡券对象
 
     xhr = new XMLHttpRequest();  // XMLHttpRequest 对象
