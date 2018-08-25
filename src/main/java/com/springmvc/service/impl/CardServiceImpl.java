@@ -38,7 +38,9 @@ public class CardServiceImpl  implements CardService {
             cardDto.setPrice(item.getPrice());
             cardDto.setType(item.getType());
             cardDto.setInventory(item.getInventory());
+            cardDto.setDoublePrice((double)item.getPrice()/100);
             cardDtoList.add(cardDto);
+
             }
          return cardDtoList;
 
@@ -82,19 +84,26 @@ public class CardServiceImpl  implements CardService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         card.setEnddate(new Date());
         List<Card>  cardlist=cardMapper.selectCardListByAdidList(cardIdList);
-//        List<CardDto> cardDtoList=new ArrayList<CardDto>();
-//        for (Card item :cardlist
-//                ) {
-//            CardDto cardDto=new CardDto();
-//            cardDto.setEnddatestring(df.format(item.getEnddate()));
-//            cardDto.setId(item.getId());
-//            cardDto.setCardid(item.getCardid());
-//            cardDto.setName(item.getName());
-//            cardDto.setPrice(item.getPrice());
-//            cardDto.setType(item.getType());
-//            cardDto.setInventory(item.getInventory());
-//            cardDtoList.add(cardDto);
-//        }
+        List<CardDto> cardDtoList=new ArrayList<CardDto>();
+        for (Card item :cardlist
+                ) {
+            CardDto cardDto=new CardDto();
+            cardDto.setEnddatestring(df.format(item.getEnddate()));
+            cardDto.setId(item.getId());
+            cardDto.setCardid(item.getCardid());
+            cardDto.setName(item.getName());
+            cardDto.setPrice(item.getPrice());
+            cardDto.setType(item.getType());
+            cardDto.setInventory(item.getInventory());
+            cardDtoList.add(cardDto);
+        }
+
         return cardlist;
     }
+
+    //修改卡券
+    public int updateCard(Card card)throws Exception{
+      int result=  cardMapper.updateCard(card);
+      return  result;
+    };
 }

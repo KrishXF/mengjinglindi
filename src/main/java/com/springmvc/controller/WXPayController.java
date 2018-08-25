@@ -102,15 +102,11 @@ public class WXPayController {
                 inputString.append(line);
             }
             xmlString = inputString.toString();
-
             System.out.println("=====================================\n" + xmlString);
-
             request.getReader().close();
-
             // parser xml to map by weixinUtil;
             Map<String, String> map = new HashMap<String, String>();
             map = WXPayUtil.xmlToMap(xmlString);
-            System.out.println(map);
             return Result.success(map);
         } catch (Exception e) {
             e.printStackTrace();

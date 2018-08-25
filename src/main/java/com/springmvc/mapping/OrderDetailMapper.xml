@@ -301,6 +301,7 @@
     <include refid="Base_Column_List" />
     from orderdetail
     where Adid = #{adid,jdbcType=VARCHAR}
+    and OrderState=1
     order by CreateTime desc
   </select>
 
@@ -310,11 +311,8 @@
     <if test="orderstate != null">
       OrderState = #{orderstate,jdbcType=INTEGER},
     </if>
-    <if test="orderstate = 1">
-      usingTime = #{usingtime,jdbcType=TIMESTAMP},
-    </if>
   </set>
-  where Id = #{id,jdbcType=INTEGER}
+  where OrderId = #{orderid,jdbcType=VARCHAR}
 </update>
 
   <update id="updateOrderByOrderGroupId" parameterType="com.springmvc.pojo.OrderDetail">
@@ -331,6 +329,7 @@
     <set>
       <if test="wxcode != null">
        WXCode = #{wxcode,jdbcType=VARCHAR},
+       OrderState = 3,
       </if>
     </set>
     where OrderId = #{orderid,jdbcType=VARCHAR}
@@ -375,7 +374,7 @@
     <set>
       <if test="wxcode != null">
         DetailAddress= #{detailaddress,jdbcType=VARCHAR},
-        OrderState = 3,
+        OrderState = 4,
         GoodsUsingTime= #{goodsusingtime,jdbcType=TIMESTAMP},
         Name= #{name,jdbcType=VARCHAR},
         Phone= #{phone,jdbcType=VARCHAR},
@@ -396,7 +395,7 @@
     select
     <include refid="Base_Column_List" />
     from orderdetail
-    where OrderState=3
+    where OrderState=4
     order by GoodsUsingTime desc
   </select>
 

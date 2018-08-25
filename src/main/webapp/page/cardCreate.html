@@ -8,16 +8,60 @@
 <progress id="progressBar" value="0" max="100" style="width: 300px;"></progress>
 <span id="percentage"></span><span id="time"></span>
 <br /><br />
-<input type="file" id="file" name="myfile" />
-<input type="button" onclick="UpladFile()" value="创建卡券" />
+卡券logo（微信用）<input type="file" id="file" name="myfile" />
+<input type="button" onclick="UpladFile()" value="创建卡券(请在内容确认填写完成后点击)" />
 <input type="button" onclick="cancleUploadFile()" value="取消" />
-<textarea id="cardJson"></textarea>
-<textarea id="localJson"></textarea>
+<br>
+微信卡券内容：<textarea style="width: 250px;height: 300px" id="cardJson"></textarea>
+<br>
+建议可修改内容如下：<br>
+title:卡券标题
+<br>
+卡券颜色：<br>
+<span style="color: #63b359">Color010</span><br>
+<span style="color: #2c9f67">Color020</span><br>
+<span style="color: #509fc9">Color030</span><br>
+<span style="color: #5885cf">Color040</span><br>
+<span style="color: #9062c0">Color050</span><br>
+<span style="color: #d09a45">Color060</span><br>
+<span style="color: #e4b138">Color070</span><br>
+<span style="color: #ee903c">Color080</span><br>
+<span style="color: #f08500">Color081</span><br>
+<span style="color: #a9d92d">Color082</span><br>
+<span style="color: #dd6549">Color090</span><br>
+<span style="color: #cc463d">Color100</span><br>
+<span style="color: #cf3e36">Color101</span><br>
+<span style="color: #5E6671">Color102</span><br>
+begin_timestamp：卡券有效期开始时间 （需要填写时间戳 请使用下方工具转换）<br>
+end_timestamp：卡券有效期结束时间 （需要填写时间戳 请使用下方工具转换）<br>
+quantity：库存量<br>
+get_limit：每人限购数量<br>
+text：卡券介绍，目前有三段，可以选填，如果填写了内容，会穿插在卡券详情图片中显示<br>
+<br>
+<br>
+微信卡券封面图片：<input type="file" id="basefile" name="myfile" />
+微信卡券详情图片1：<input type="file" id="detail1" name="myfile" />
+微信卡券详情图片2：<input type="file" id="detail2" name="myfile" />
+<br>
+卡券logo（本地用）<input type="file" id="locallogo" name="myfile" />
+<br>
+本地卡券内容：<textarea style="width: 450px;height: 150px" id="localJson"></textarea>
+<br>
+Name：本地展示卡券名：可以和微信卡券名保持一致<br>
+Price：价格<br>
+Type：卡券类型，0=全国券，1=江浙沪券<br>
+StartDate：开始有效期 <br>
+EndDate：结束有效期 <br>
+<br>
+本地卡券介绍：<input type="file" id="detail3" name="myfile" />
+<br>
+<br>
+<br>
+(请输入正确格式，否则可能无法转换，格式参考：2018-08-18 23:59:59 开始时间和结束时间请写明 时 分 秒，例如：开始 2018-08-01 00:00:00 结束：2018-08-31 23:59:59)  <br>
+日期：<input type="text" id="timetype"/><input type="button" onclick="changeTime()"value="转换成：" />
+时间戳：<input type="text" id="timestamps"/><br>
+本转换工具用于填写微信时间，开始时间对应微信卡券内容中：begin_timestamp，结束时间对应：end_timestamp，请将转换后数字串放入开始结束时间字段对应位置，填写错误可能导致建卡券失败！
 
-封面图片：<input type="file" id="basefile" name="myfile" />
-详情图片：<input type="file" id="detail1" name="myfile" />
-详情图片：<input type="file" id="detail2" name="myfile" />
-详情图片：<input type="file" id="detail3" name="myfile" />
 <script type="text/javascript" src="../js/cardCreate.js"></script>
 </body>
 </html>

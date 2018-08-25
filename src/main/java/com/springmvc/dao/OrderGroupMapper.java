@@ -11,7 +11,9 @@ public interface OrderGroupMapper {
 
     int updatestatus(OrderGroup record);
 
-    List<OrderGroup> selectByAdid(String cardId);
+    List<OrderGroup> selectByAdid(String adid);
+
+    OrderGroup selectByOrderGroupId(String orderGroupId);
 
     int updateOrderByOrderGroupId(OrderGroup record);
 }

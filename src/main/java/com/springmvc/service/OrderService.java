@@ -12,12 +12,13 @@ import java.util.List;
 public interface OrderService {
 
        //获取我的订单列表
-       List<OrderGroup> getOrderList(String Adid) throws Exception;
+    //   List<OrderGroup> getOrderList(String Adid) throws Exception;
 
+       List<OrderDetail> getOrderList(String Adid) throws Exception;
        //新增订单
-       String insertOrder(OrderDetail orderDetail)throws Exception;
+       OrderDetail insertOrder(OrderDetail orderDetail)throws Exception;
 
-       int updateOrder(int Id, int orderState)throws Exception;
+       int updateOrder(String Id, int orderState)throws Exception;
 
        int updateOrderWXCode(String orderId, String WXCode)throws Exception;
 
@@ -29,9 +30,14 @@ public interface OrderService {
 
        List<String> insertOrderList(OrderDetail orderDetail) throws Exception;
 
-       List<String> insertOrderGroup(OrderGroup orderGroup) throws Exception;
+       OrderGroup insertOrderGroup(OrderGroup orderGroup) throws Exception;
 
        int updateOrderWXCodeByorderId(List<OrderDetail> orderDetailList) throws Exception;
 
        int updateOrderByOrderGroupId(String orderGroupId)throws Exception ;
+
+       List<OrderGroup> getOrderGroupList(String Adid) throws Exception;
+
+       int insertOrderWXCode(List<String> codeList, String orderGroupId) throws Exception;
+
 }

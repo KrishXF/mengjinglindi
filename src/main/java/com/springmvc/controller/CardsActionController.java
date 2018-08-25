@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.ParseException;
@@ -51,15 +52,17 @@ public class CardsActionController {
     //获得卡卷具体信息，先组成json，调用创建卡券，获得微信返回的信息，调用本地保存卡券方法。
     @RequestMapping("/createCard.do")
     @ResponseBody
-    public Result createCard(HttpServletRequest resquest, @RequestParam("uploadFile") MultipartFile uploadFile, @RequestParam("basefile") MultipartFile basefile, @RequestParam("detail1") MultipartFile detail1, @RequestParam("detail2") MultipartFile detail2, @RequestParam("detail3") MultipartFile detail3, @RequestParam("cardInfo") String cardInfo, @RequestParam("baseInfo") String baseInfo, @RequestParam("localJson") String localJson, HttpServletResponse response) {
+    public Result createCard(HttpServletRequest resquest, @RequestParam("uploadFile") MultipartFile uploadFile, @RequestParam("basefile") MultipartFile basefile,@RequestParam("locallogo") MultipartFile locallogo, @RequestParam("detail1") MultipartFile detail1, @RequestParam("detail2") MultipartFile detail2, @RequestParam("detail3") MultipartFile detail3, @RequestParam("cardInfo") String cardInfo, @RequestParam("baseInfo") String baseInfo, @RequestParam("localJson") String localJson, HttpServletResponse response) {
         try {
             //获取token方法
             String accessToken = wxService.getAccessToken();
             String logoFilePath = "";
+            String localLogoFilePath = "";
             List<String> filePathForWxList = new ArrayList<String>();
             List<String> filePathList = new ArrayList<String>();
             logoFilePath = FileUploadUtil.uploadFile(resquest, uploadFile);
-            filePathList.add(logoFilePath);
+            localLogoFilePath = FileUploadUtil.uploadFile(resquest, locallogo);
+            filePathList.add(localLogoFilePath);
             String baseFilePath = FileUploadUtil.uploadFile(resquest, basefile);
             //调用微信方法上传logo
             CardsCreateService cardsCre = new CardsCreateService();
@@ -180,12 +183,56 @@ public class CardsActionController {
             }
         } catch (WxErrorException e) {
             return Result.error(CodeMsg.Failed);
-        }
-        JSONObject resulstJson = new JSONObject();
+    }
+    JSONObject resulstJson = new JSONObject();
         resulstJson.put("success",successList);
         resulstJson.put("error",failList);
         System.out.println(resulstJson);
         return Result.success(resulstJson);
+    }
+
+
+    //卡券解密并调用新增订单--wrj
+    @RequestMapping("/cardDecrypt")
+    @ResponseBody
+    public Result cardDecryptAndAdd(HttpServletRequest resquest, @RequestParam("ecodelist[]") List<String> ecodeList,String orderGroupId, HttpServletResponse response) {
+        //首先获取accessToken，前文已经描写了获取方法这类就不再啰嗦了
+        String decUrl = "https://api.weixin.qq.com/card/code/decrypt?access_token={0}";
+        String accessToken = null;
+        try {
+            accessToken = wxService.getAccessToken();
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        String url = MessageFormat.format(decUrl, accessToken);
+        Map<String, String> successMap = new HashMap<String, String>();
+        Map<String, String> failMap = new HashMap<String, String>();
+        List<String> codeList = new ArrayList<String>();
+        //List<String> ecodeList = java.util.Arrays.asList(ecodeStr.split(","));
+        for (String ecode : ecodeList) {
+            JSONObject json = new JSONObject();
+            json.put("encrypt_code", ecode);
+            String returnJson = HttpRequestUtil.getResponse(url, json.toString());
+            JSONObject jsonCardInfo = JSON.parseObject(returnJson);
+            Integer retcode = jsonCardInfo.getInteger("errcode");
+            if (retcode == 0) {
+                String code = jsonCardInfo.getString("code");
+                codeList.add(code);
+                successMap.put(ecode,code);
+            } else {
+                failMap.put(ecode,ecode);
+            }
+        }
+        try {
+            orderservice.insertOrderWXCode(codeList,orderGroupId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> retMap = new HashMap<String, Object>();
+        retMap.put("success",successMap);
+        retMap.put("error",failMap);
+        System.out.println(retMap);
+        return Result.success(retMap);
     }
 
     //本地CardBean参数组装类
@@ -195,7 +242,8 @@ public class CardsActionController {
         card.setCardid(cardID);
         card.setIntroduc(jsonCardInfo.getString("Introduc"));
         card.setName(jsonCardInfo.getString("Name"));
-        card.setPrice(jsonCardInfo.getInteger("Price"));
+        Double price = Double.valueOf(jsonCardInfo.get("Price").toString())*100;
+        card.setPrice(price.intValue());
         card.setInventory(jsonCardInfo.getInteger("Inventory"));
         card.setSoldnum(0);
         card.setCardstate(0);

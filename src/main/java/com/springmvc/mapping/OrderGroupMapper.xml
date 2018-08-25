@@ -55,11 +55,21 @@
     order by CreateTime desc
   </select>
 
+
+  <select id="selectByOrderGroupId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ordergroup
+    where OrderGroupId = #{orderGroupId,jdbcType=VARCHAR}
+  </select>
+
   <update id="updateOrderByOrderGroupId" parameterType="com.springmvc.pojo.OrderGroup">
     update ordergroup
     <set>
-        OrderState = 3
+        OrderState = #{orderstate,jdbcType=INTEGER}
     </set>
     where OrderGroupId = #{ordergroupid,jdbcType=VARCHAR}
   </update>
+
+
 </mapper>

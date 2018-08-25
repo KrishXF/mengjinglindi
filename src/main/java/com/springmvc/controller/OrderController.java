@@ -51,8 +51,8 @@ public class OrderController {
     @ResponseBody
     public Result insertOrder(OrderDetail orderDetail, HttpServletRequest request, HttpServletResponse response){
         try {
-            String resultdata=orderservice.insertOrder(orderDetail);
-            if (resultdata!=""){
+            OrderDetail resultdata=orderservice.insertOrder(orderDetail);
+            if (resultdata!=null){
                 return Result.success(resultdata);
             }else {
                 return Result.error(CodeMsg.Failed);
@@ -63,7 +63,7 @@ public class OrderController {
         }
     }
 
-    //批量插入卡券
+    //插入卡券
     @RequestMapping("/insertOrderList.do")
     @ResponseBody
     public Result insertOrderList(OrderDetail orderDetail, HttpServletRequest request, HttpServletResponse response){
@@ -80,16 +80,13 @@ public class OrderController {
         }
     }
 
+    //批量插入卡券
     @RequestMapping("/insertOrderGroup.do")
     @ResponseBody
     public Result insertOrderGroup(OrderGroup orderGroup, HttpServletRequest request, HttpServletResponse response){
         try {
-            List<String> resultdata=orderservice.insertOrderGroup(orderGroup);
-            if (resultdata!=null){
-                return Result.success(resultdata);
-            }else {
-                return Result.error(CodeMsg.Failed);
-            }
+            OrderGroup resultdata=orderservice.insertOrderGroup(orderGroup);
+            return Result.success(resultdata);
         }catch (Exception ex){
             logger.error(ex.getMessage());
             return  Result.error(CodeMsg.Failed,ex.getMessage());
@@ -150,9 +147,9 @@ public class OrderController {
     @ResponseBody
     public Result updateOrder(HttpServletRequest request, HttpServletResponse response){
         try {
-            int Id= Integer.parseInt(URLDecoder.decode(request.getParameter("Id"), "utf-8")) ;
-            int orderState=Integer.parseInt(URLDecoder.decode(request.getParameter("OrderState"), "utf-8")) ;
-            int resultdata=orderservice.updateOrder(Id,orderState);
+            String OrderId= URLDecoder.decode(request.getParameter("OrderId"), "utf-8");
+            int orderState=1 ;
+            int resultdata=orderservice.updateOrder(OrderId,orderState);
             if ( resultdata==1 ){
                 return Result.success();
             }else {
@@ -170,6 +167,10 @@ public class OrderController {
         try {
             String orderId= URLDecoder.decode(request.getParameter("orderId"), "utf-8") ;
             String WXCode=URLDecoder.decode(request.getParameter("WXCode"), "utf-8");
+            WXCode= WXCode.replaceAll(" ","+");//将空格换成%20
+            logger.info("++++++++++++++++updateOrderWXCode++++++++++++++++++++");
+            logger.info("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+            logger.info(WXCode);
             int resultdata=orderservice.updateOrderWXCode(orderId,WXCode);
             if ( resultdata==1 ){
                 return Result.success();
@@ -185,9 +186,12 @@ public class OrderController {
     @RequestMapping("/updateOrderGoodsList.do")
     @ResponseBody
     public Result updateOrderGoodsList(String str, OrderDetail orderDetail, HttpServletRequest request, HttpServletResponse response){
-
         try {
+            logger.info("进入updateOrderGoodsList，in updateOrderGoodsList");
+            logger.info(str);
+            logger.info(orderDetail.getDetailaddress());
             int resultdata=orderservice.UpdateOrderGoodsList(str,orderDetail);
+            logger.info(resultdata+"");
             if ( resultdata==1 ){
                 return Result.success();
             }else {
@@ -228,5 +232,56 @@ public class OrderController {
             return null;
         }
     }
+
+    @RequestMapping("/getOrderGroupList.do")
+    @ResponseBody
+    public Result getOrderGroupList(HttpServletRequest request, HttpServletResponse response){
+        try {
+            String adid=URLDecoder.decode(request.getParameter("Adid"), "utf-8") ;
+            return Result.success(orderservice.getOrderGroupList(adid));
+        }catch (Exception ex){
+            logger.error(ex.getMessage());
+            return  Result.error(CodeMsg.Failed,ex.getMessage());
+        }
+    }
+
+    //修改订单状态（批量）至已使用，未发货，并对每个卡券添加code，传入订单号，code的list
+    @RequestMapping("/insertOrderWXCode.do")
+    @ResponseBody
+    public Result insertOrderWXCode(@RequestParam("codeList[]") List<String> codeList,String orderGroupId, HttpServletRequest request, HttpServletResponse response){
+        try {
+          //  String wxCode=URLDecoder.decode(request.getParameter("WXCode"), "utf-8") ;
+            int resultdata=orderservice.insertOrderWXCode(codeList,orderGroupId);
+            if ( resultdata!=0 ){
+                return Result.success();
+            }else {
+                return Result.error(CodeMsg.Failed);
+            }
+        }catch (Exception ex){
+            logger.error(ex.getMessage());
+            return  Result.error(CodeMsg.Failed,ex.getMessage());
+        }
+    }
+
+
+    //更新订单
+    @RequestMapping("/updateOrderStatus.do")
+    @ResponseBody
+    public Result updateOrderStatus(HttpServletRequest request, HttpServletResponse response){
+        try {
+            String OrderId= URLDecoder.decode(request.getParameter("OrderId"), "utf-8");
+            int orderState=Integer.parseInt(URLDecoder.decode(request.getParameter("OrderState"), "utf-8"))  ;
+            int resultdata=orderservice.updateOrder(OrderId,orderState);
+            if ( resultdata==1 ){
+                return Result.success();
+            }else {
+                return Result.error(CodeMsg.Failed);
+            }
+        }catch (Exception ex){
+            logger.error(ex.getMessage());
+            return  Result.error(CodeMsg.Failed,ex.getMessage());
+        }
+    }
+
 
 }

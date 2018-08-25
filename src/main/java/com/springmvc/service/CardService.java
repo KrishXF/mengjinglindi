@@ -16,5 +16,8 @@ public interface CardService {
        // 获取卡券详情
        CardDto getCardInfo(int id) throws Exception;
 
-       List<Card> getCardInfoByCardIdList( List<String> cardIdList) throws Exception;
+       List<Card> getCardInfoByCardIdList(List<String> cardIdList) throws Exception;
+
+       //修改卡券
+       int updateCard(Card card)throws Exception;
 }

@@ -95,7 +95,7 @@
         "\"deal_detail\": \"价格优惠\""  +
         "  }" +
         "}";
-    var localInfo = document.getElementById("localJson").value = "{\"Introduc\":\"\",\"Name\":\"阳光玫瑰葡萄\",\"Price\":100,\"Type\":1,\"Inventory\":500,\"Remarks\":\"Remarks\",\"StartDate\":\"2018-8-01\",\"EndDate\":\"2018-8-31\",\"TimeRemarks\":\"周一到周日全天可用\",\"Type\":\"1\"}"
+    var localInfo = document.getElementById("localJson").value = "{\"Introduc\":\"\",\"Name\":\"阳光玫瑰葡萄\",\"Price\":100,\"Inventory\":500,\"Remarks\":\"Remarks\",\"StartDate\":\"2018-8-01\",\"EndDate\":\"2018-8-31\",\"TimeRemarks\":\"周一到周日全天可用\",\"Type\":\"1\"}"
 })();
 
 //图片上传
@@ -107,6 +107,8 @@ function UpladFile() {
     var a1 = null!=document.getElementById("detail1").files[0]?document.getElementById("detail1").files[0]:""; // js 获取文件对象
     var a2 = null!=document.getElementById("detail2").files[0]?document.getElementById("detail2").files[0]:""; // js 获取文件对象
     var a3 = null!=document.getElementById("detail3").files[0]?document.getElementById("detail3").files[0]:""; // js 获取文件对象
+    var a4 = null!=document.getElementById("locallogo").files[0]?document.getElementById("locallogo").files[0]:""; // js 获取文件对象
+
     var url =  "http://localhost:8080" + "/wexinCard/createCard.do"; // 接收上传文件的后台地址
 
     var form = new FormData(); // FormData 对象
@@ -115,6 +117,7 @@ function UpladFile() {
     form.append("detail1", a1); // 文件对象
     form.append("detail2", a2); // 文件对象
     form.append("detail3", a3); // 文件对象
+    form.append("locallogo", a4); // 文件对象
     form.append("cardInfo", document.getElementById("cardJson").value); // 微信卡券对象
     form.append("baseInfo", ""); // 微信卡券对象
     form.append("localJson", document.getElementById("localJson").value); // 本地卡券对象
@@ -188,4 +191,11 @@ function progressFunction(evt) {
     var resttime = ((evt.total-evt.loaded)/bspeed).toFixed(1);
     time.innerHTML = '，速度：'+speed+units+'，剩余时间：'+resttime+'s';
     if(bspeed==0) time.innerHTML = '上传已取消';
+}
+
+function changeTime() {
+    var time = document.getElementById("timetype").value;
+    var date = new Date(time);
+    var time1 = Math.round(date / 1000);
+    document.getElementById("timestamps").value = time1;
 }

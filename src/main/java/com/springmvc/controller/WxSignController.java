@@ -3,6 +3,7 @@ package com.springmvc.controller;
 import com.springmvc.cache.WxApiTicketCacheUtil;
 import com.springmvc.common.CodeMsg;
 import com.springmvc.common.Result;
+import com.springmvc.config.WxMpConfig;
 import com.springmvc.service.WeixinService;
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -27,7 +28,12 @@ public class WxSignController {
     @Autowired
     private WeixinService wxService;
 
+
+    @Autowired
+    WxMpConfig wxConfig;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @RequestMapping("/getConfig")
     @ResponseBody
     public Result getWxConfig(HttpServletRequest request, @RequestParam("url") String url) throws JSONException {
@@ -60,44 +66,34 @@ public class WxSignController {
 
     @RequestMapping("/getAddCard")
     @ResponseBody
-    public Result getWxAddCard(HttpServletRequest request, @RequestParam("card_id") String card_id) throws JSONException {
+    public Result getWxAddCard(HttpServletRequest request, @RequestParam("card_id") String card_id, @RequestParam("count") int count) throws JSONException {
         try {
+            List cardIdList = new ArrayList();
             WxApiTicketCacheUtil wxApiTicketCacheUtil = new WxApiTicketCacheUtil();
             String accessToken = wxService.getAccessToken();
             String api_ticket = wxApiTicketCacheUtil.getApiTicketCache(accessToken);
-            String noncestr = UUID.randomUUID().toString().replace("-", "");
             long time = new Date().getTime();
             String timestamp = String.valueOf(time);
-            Integer times = Integer.valueOf(timestamp.substring(0,timestamp.length()-3));
-            SortedMap<Object, Object> map = new TreeMap<Object, Object>();
-            map.put("api_ticket", api_ticket);
-            map.put("card_id", card_id);
-            map.put("noncestr", noncestr);
-            map.put("timestamp", times + "");
-            System.out.println("aaaaapppppiii+++++++++++"+api_ticket);
-            System.out.println("cacccaarddddd+++++++++++"+card_id);
-            System.out.println("nonceggrrrrrr+++++++++++"+noncestr);
-            System.out.println("timpppppppppp+++++++++++"+times);
-            ArrayList<String> list=new ArrayList<String>();
-//            list.add("IpK_1T69hDhZkLQTlwsAX20dkBxcnGDQiHg5t2jce_jMWI4lVM83Xf0PTOoOU8fj-QsSxKDHzLFInNaSUqBzMw");
-//            list.add("pqG24w94hlQ_nsb2P591wOLf-9b8");
-//            list.add("66c5524165b74d1db4bc76d4336cf9c1");
-//            list.add("1532870371997");
-            list.add(api_ticket);
-            list.add(card_id);
-            list.add(noncestr);
-            list.add(times + "");
-            String signature = createSignBySha1(list);
-            list.add(signature);
-
-            Map<String, String> resultMap = new HashMap<String, String>();
-            resultMap.put("timestamp", times + "");
-            resultMap.put("cardId", card_id);
-            resultMap.put("nonce_str", noncestr);
-            resultMap.put("signature", signature);
-            logger.info(list.toString()+"------------------"+resultMap.toString());
-            System.out.println(resultMap);
-            return Result.success(resultMap);
+            Integer times = Integer.valueOf(timestamp.substring(0, timestamp.length() - 3));
+            for (int i = 1; i <= count; i++) {
+                String noncestr = UUID.randomUUID().toString().replace("-", "");
+                ArrayList<String> list = new ArrayList<String>();
+                list.add(api_ticket);
+                list.add(card_id);
+                list.add(noncestr);
+                list.add(times-i + "");
+                String signature = createSignBySha1(list);
+                list.add(signature);
+                Map<String, String> resultMap = new HashMap<String, String>();
+                resultMap.put("timestamp", times-i + "");
+                resultMap.put("cardId", card_id);
+                resultMap.put("nonce_str", noncestr);
+                resultMap.put("signature", signature);
+                logger.info(list.toString() + "------------------" + resultMap.toString());
+                cardIdList.add(resultMap);
+            }
+            logger.info("-------------cardList------------------"+cardIdList.toString());
+            return Result.success(cardIdList);
         } catch (Exception e) {
             return Result.error(CodeMsg.Failed);
         }
@@ -113,36 +109,37 @@ public class WxSignController {
         JSONObject aaaa = JSONObject.fromObject(aaa);
         String api_ticket = aaaa.get("api_ticket").toString();*/
         try {
-        WxApiTicketCacheUtil wxApiTicketCacheUtil = new WxApiTicketCacheUtil();
-        String api_ticket = wxApiTicketCacheUtil.getApiTicketCache(wxService.getAccessToken());
-        String appid = "wxaf935dfd17fe3962";
-        String timestamp = String.valueOf(Calendar.getInstance().getTimeInMillis());
-        Integer times = Integer.valueOf(timestamp.substring(0,timestamp.length()-3));
-        String noncestr = UUID.randomUUID().toString().replace("-", "");
-        SortedMap<Object, Object> map = new TreeMap<Object, Object>();
-        map.put("api_ticket", api_ticket);
-        map.put("appid", appid);
-        map.put("card_id", card_id);
-        map.put("noncestr", noncestr);
-        map.put("timestamp", times+"");
+            WxApiTicketCacheUtil wxApiTicketCacheUtil = new WxApiTicketCacheUtil();
+            String api_ticket = wxApiTicketCacheUtil.getApiTicketCache(wxService.getAccessToken());
+            String appid = wxConfig.getAppid();
+            System.out.println("appid:" + appid);
+            String timestamp = String.valueOf(Calendar.getInstance().getTimeInMillis());
+            Integer times = Integer.valueOf(timestamp.substring(0, timestamp.length() - 3));
+            String noncestr = UUID.randomUUID().toString().replace("-", "");
+            SortedMap<Object, Object> map = new TreeMap<Object, Object>();
+            map.put("api_ticket", api_ticket);
+            map.put("appid", appid);
+            map.put("card_id", card_id);
+            map.put("noncestr", noncestr);
+            map.put("timestamp", times + "");
 
-        ArrayList<String> list=new ArrayList<String>();
-        list.add(api_ticket);
-        list.add(appid);
-        list.add(card_id);
-        list.add(noncestr);
-        list.add(times+"");
-        String signature = createSignBySha1(list);
+            ArrayList<String> list = new ArrayList<String>();
+            list.add(api_ticket);
+            list.add(appid);
+            list.add(card_id);
+            list.add(noncestr);
+            list.add(times + "");
+            String signature = createSignBySha1(list);
 
-        Map<String, String> resultMap = new HashMap<String, String>();
-        resultMap.put("timestamp", times+"");
-        resultMap.put("nonceStr", noncestr);
-        resultMap.put("signType", "SHA1");
-        resultMap.put("cardId", card_id);
-        resultMap.put("cardSign", signature);
-        return Result.success(resultMap);
-    } catch (Exception e) {
-        return Result.error(CodeMsg.Failed);
-    }
+            Map<String, String> resultMap = new HashMap<String, String>();
+            resultMap.put("timestamp", times + "");
+            resultMap.put("nonceStr", noncestr);
+            resultMap.put("signType", "SHA1");
+            resultMap.put("cardId", card_id);
+            resultMap.put("cardSign", signature);
+            return Result.success(resultMap);
+        } catch (Exception e) {
+            return Result.error(CodeMsg.Failed);
+        }
     }
 }

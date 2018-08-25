@@ -24,7 +24,8 @@ public class ProvincialUrbanAreaController {
 
     @RequestMapping(value = "/province.do")
     @ResponseBody
-    public Result consumeCard(HttpServletRequest resquest, HttpServletResponse response) {
+    public Result consumeCard(HttpServletRequest request, HttpServletResponse response) {
+        String type = request.getParameter("type");
         List<Map> provinceList = provincialUrbanAreaService.getProvinceList();
         return Result.success(provinceList);
     }

@@ -54,7 +54,7 @@ public class CardController {
         }
     }
 
-    //获取卡券列表获取卡券详情
+    //获取卡券列表
     @RequestMapping("/getCardInfoByCardIdList.do")
     @ResponseBody
     public Result getCardInfoByCardIdList(@RequestParam("cardIdList[]") List<String> cardIdList, HttpServletRequest request, HttpServletResponse response){
@@ -94,6 +94,24 @@ public class CardController {
             logger.error(ex.getMessage());
         }
     }
+
+    //修改卡券状态（0-可用，1-已过期，2-已删除）
+    @RequestMapping("/updateCard.do")
+    @ResponseBody
+    public Result updateCard(Card card,HttpServletRequest request, HttpServletResponse response){
+        try {
+            int resultdata=cardservice.updateCard(card);
+            if ( resultdata==1 ){
+                return Result.success();
+            }else {
+                return  Result.error(CodeMsg.Failed);
+            }
+        }catch (Exception ex){
+            logger.error(ex.getMessage());
+            return  Result.error(CodeMsg.Failed,ex.getMessage());
+        }
+    }
+
 
 
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springmvc.dao.TemporaryMapper">
+    <update id="updateOrder">
+        UPDATE orderdetail SET OrderState = 0 WHERE OrderId = #{orderid}
+    </update>
+
+    <select id="getid" resultType="int">
+        SELECT Id FROM orderdetail WHERE OrderId = #{orderid}
+    </select>
+</mapper>

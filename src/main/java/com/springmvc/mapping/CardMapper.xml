@@ -230,6 +230,7 @@
         EndDate
         from card
         where  EndDate >= #{enddate,jdbcType=TIMESTAMP}
+        and CardState=0
     </select>
     <select id="selectCardByCardId" parameterType="com.springmvc.pojo.Card" resultMap="BaseResultMap">
         select
@@ -247,5 +248,51 @@
             #{item}
         </foreach>
     </select>
+
+    <update id="updateCard" parameterType="com.springmvc.pojo.Card">
+        update card
+        <set>
+            <if test="name != null">
+                Name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                Price = #{price,jdbcType=INTEGER},
+            </if>
+            <if test="img != null">
+                Img = #{img,jdbcType=VARCHAR},
+            </if>
+            <if test="timestrap != null">
+                Timestrap = #{timestrap,jdbcType=TIMESTAMP},
+            </if>
+            <if test="type != null">
+                Type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="inventory != null">
+                Inventory = #{inventory,jdbcType=INTEGER},
+            </if>
+            <if test="soldnum != null">
+                Soldnum = #{soldnum,jdbcType=INTEGER},
+            </if>
+            <if test="cardstate != null">
+                CardState = #{cardstate,jdbcType=INTEGER},
+            </if>
+            <if test="remarks != null">
+                Remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="startdate != null">
+                StartDate = #{startdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enddate != null">
+                EndDate = #{enddate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="timeremarks != null">
+                TimeRemarks = #{timeremarks,jdbcType=VARCHAR},
+            </if>
+            <if test="introduc != null">
+                Introduc = #{introduc,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where CardId = #{cardid,jdbcType=VARCHAR}
+    </update>
 
 </mapper>

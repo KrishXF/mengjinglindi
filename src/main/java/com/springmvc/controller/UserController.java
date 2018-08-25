@@ -71,7 +71,11 @@ public class UserController {
     public void getOpenID(HttpServletRequest request, HttpServletResponse response) {
         try {
             String code = request.getParameter("code");
-            String url = "appid=wxaf935dfd17fe3962&secret=0d5d90db193001085a9788f19c8c0490&code=" + code + "&grant_type=authorization_code";
+            String appid = wxMpConfig.getAppid();
+            String secret = wxMpConfig.getAppsecret();
+            System.out.println("appid" + appid);
+            String url = "appid=" + appid + "&secret=" + secret + "&code=" + code + "&grant_type=authorization_code";
+            System.out.println("url:" + url);
             String aaa = HttpGetUtil.sendGet("https://api.weixin.qq.com/sns/oauth2/access_token", url);
             JSONObject aaaa = JSONObject.fromObject(aaa);
             String openid = aaaa.get("openid").toString();
@@ -90,6 +94,7 @@ public class UserController {
     public Result getSessionOpenID(HttpServletRequest request, HttpServletResponse response) {
         try {
             Object openIDO = SessionUtil.getParam(request, "openID");
+            System.out.println("openIDO:" + openIDO);
             String access_token = weixinService.getAccessToken();
             System.out.println("access_token:" + access_token);
             if (!ObjectUtils.isEmpty(openIDO)) {
